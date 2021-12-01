@@ -11,9 +11,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 /* Static file serving */
-app.use(express.static("public"));
-app.use(express.static(path.resolve("public")));
-// app.use(express.static(path.resolve("upload")));
+app.use(express.static('public'));
+app.use(express.json());
+// set the view engine to ejs
+app.set('view engine', 'ejs');
+app.set('views', 'views');
+
 // routes component
 const route = (moduleName) => require(`./modules/${moduleName}/routes`);
 

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const controller = require("./handler");
 const {upload} = require("../../utils/uploads");
-console.log(upload);
+// console.log(upload);
 
 router.get("/", controller.home);
 router.get("/generateTable", controller.createTable);
