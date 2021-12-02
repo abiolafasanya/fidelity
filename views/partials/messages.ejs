@@ -1,5 +1,10 @@
-<div class="alert alert-info p-3">
-    <% if (messages) {%>
-        <%= messages %>
-    <% } %>
-</div>
+<% if (message.length > 0 ) {%>
+<div class="alert alert-success text-center lead p-3" id="msg"><%= message %></div>
+<% } %> 
+
+<script>
+    let msg = document.getElementById("msg")
+    setTimeout(() => {
+        msg.style.display = "none"
+    }, 6000);
+</script>

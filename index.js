@@ -5,7 +5,19 @@ const path = require("path");
 const db = require("./utils/db");
 const { PORT } = process.env || 3000;
 const session = require("express-session")
-const flash = require("connect-flash")
+const {flash} = require("express-flash-message")
+// const flash = require("connect-flash")
+
+app.use(
+  session({
+    secret: "flashMessage",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {maxAge: 3600}
+  })
+);
+
+app.use(flash());
 
 app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
@@ -19,16 +31,6 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.set("views", "views");
 app.set("port", PORT || 3000);
-
-app.use(
-  session({
-    secret: "secretKey",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-
-app.use(flash());
 
 // routes component
 const route = (moduleName) => require(`./modules/${moduleName}/routes`);

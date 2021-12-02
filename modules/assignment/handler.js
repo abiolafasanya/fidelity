@@ -4,17 +4,16 @@ const { v4: uuid } = require("uuid");
 const model = require("./model");
 const excelJS = require("exceljs");
 let app = require("express").Router()
-const {flash} = require("express-flash-message")
 const session = require("express-session")
+// const flash = require("connect-flash")
+const {flash} = require("express-flash-message")
 
 app.use(
   session({
-    secret: "secretKey",
+    secret: "flashMessage",
     resave: false,
-    saveUninitialized: true,
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24 *7
-    }
+    saveUninitialized: false,
+    cookie: {maxAge: 3600}
   })
 );
 
@@ -23,25 +22,22 @@ app.use(flash({sessionKeyName: 'flashMessage'}));
 /**
  * @route index page /assignment/generateTable
  */
-exports.index = (req, res) => {
+exports.index = async (req, res) => {
   console.log("submit page");
-  res.render('pages/submit')
+  let message = await req.consumeFlash('info')
+  res.render('pages/submit', {ok: true, message})
 };
 
-/**
- * @route create table /assignment/generateTable
- */
-exports.createTable = async (req, res) => {
-  try {
-    let create = await model.generateTable();
-    if (create.length > 0) {
-      res.send("error: table not created");
-    } else {
-      res.send("table created");
+exports.getAssignments = async (req, res) => {
+  let assignments = await model.getAssignments();
+  if (assignments) {
+    let data= {
+      ok: true,
+      message: "Assignment Available",
+      assignments,
     }
-  } catch (err) {
-    console.log(err.message);
-    res.send(err.message);
+    let message = await req.consumeFlash('message')
+    res.render("pages/index", {assignments, data, message});
   }
 };
 
@@ -62,24 +58,10 @@ exports.submit = async (req, res) => {
   };
   console.log(data);
   let submit = await model.submitAssignment(data);
-  if (submit.length > 0) {
-    // res.json({ ok: true, message: "assignment submitted", data: submit });
-    let message = "Assignment submitted"
-    await req.flash('info', message)
+  if (submit) {
+    let message = "Assignment Submitted"
+    await req.flash("info", message)
     res.redirect("/assignment")
-  } else {
-    res.json({ ok: false, message: "assignment not submitted" });
-  }
-};
-
-exports.getAssignments = async (req, res) => {
-  // console.log("get assignments");
-  let assignments = await model.getAssignments();
-  if (assignments.length > 0) {
-    res.render("pages/index", {assignments, message: false});
-  } else {
-    res.render("pages/index", {assignments, message: false});
-    // res.json({ ok: false, assignment, message: "no assignments" });
   }
 };
 
@@ -89,8 +71,8 @@ exports.deleteAssignment = async (req, res) => {
   const assignment = await model.deleteAssignment(req.params.id)
   if (assignment) {
     let message= 'Assignment Deleted'
-    req.flash('info', message)
-    res.redirect('/assignment')
+    req.flash('message', message)
+    res.redirect('/assignment/results')
   }
 }
 
@@ -122,3 +104,21 @@ let dateFormat = (date) => {
     counter++;
   });
 }
+
+
+/**
+ * @route create table /assignment/generateTable
+ */
+ exports.createTable = async (req, res) => {
+  try {
+    let create = await model.generateTable();
+    if (create.length > 0) {
+      res.send("error: table not created");
+    } else {
+      res.send("table created");
+    }
+  } catch (err) {
+    console.log(err.message);
+    res.send(err.message);
+  }
+};
