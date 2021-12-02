@@ -20,7 +20,8 @@ exports.generateTable = async () => {
       table.string("files");
       table.string("studentClass");
       table.string("subject");
-      table.timestamp("date");
+      table.integer("score");
+      table.timestamp("submitted_at").defaultTo(db.fn.now());
       table.string("due_date");
       //   table
       //     .integer('assignment_id')
@@ -45,8 +46,10 @@ exports.submitAssignment = (body) => {
   return db("assignment_submission").insert(body);
 };
 
-exports.gradeAssignment = (id) => {
-  return db("assignments").select("*").where({ id });
+exports.gradeAssignment = (id, score) => {
+  if (score == 0 || score > 0) 
+    return db("assignment_submission").where({ id: id }).update({ score: score });
+  else return false
 };
 
 exports.createAssignment = (body) => {
