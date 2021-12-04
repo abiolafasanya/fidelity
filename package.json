@@ -11,6 +11,7 @@
   "author": "fidelity school",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "connect-flash": "^0.1.1",
     "consola": "^2.15.3",
     "dotenv": "^10.0.0",
@@ -19,6 +20,7 @@
     "express": "^4.17.1",
     "express-flash-message": "^2.1.0",
     "express-session": "^1.17.2",
+    "json2csv": "^5.0.6",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.14",
     "moment": "^2.29.1",

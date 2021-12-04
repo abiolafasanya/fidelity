@@ -40,7 +40,7 @@ app.use("/user", route("user"));
 app.use("/assignment", route("assignment"));
 
 const { notFoundErrorHandler, serverErrorHandler } = require("./utils/helpers");
-// app.use(serverErrorHandler);
+app.use(serverErrorHandler);
 app.use(notFoundErrorHandler);
 
 module.exports = app;

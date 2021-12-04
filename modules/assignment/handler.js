@@ -7,6 +7,8 @@ let app = require("express").Router();
 const session = require("express-session");
 // const flash = require("connect-flash")
 const { flash } = require("express-flash-message");
+const { downloadResource } = require('../../utils/helpers');
+
 
 app.use(
   session({
@@ -131,15 +133,43 @@ exports.createTable = async (req, res) => {
 exports.grade = async (req, res) => {
   let id = req.params.id;
   let score = req.body.score;
-  let grade = await model.gradeAssignment(id, score)
-  if(grade) {
-    let message= 'Assignment Graded'
-    req.flash('message', message)
-    res.redirect('/assignment/results')
+  let grade = await model.gradeAssignment(id, score);
+  if (grade) {
+    let message = "Assignment Graded";
+    req.flash("message", message);
+    res.redirect("/assignment/results");
   } else {
-    let message= 'Assignment Not Graded'
-    req.flash('message', message)
-    res.redirect('/assignment/results')
+    let message = "Assignment Not Graded";
+    req.flash("message", message);
+    res.redirect("/assignment/results");
   }
   // console.log(id, score);
 };
+
+
+exports.downloadExcel = async (req, res) => {
+
+ let controller = {};
+
+  let fields = [
+    {
+      label: 'username',
+      value: 'username'
+    },
+    {
+      label: 'subject',
+      value: 'subject'
+    },
+    {
+     label: 'class',
+      value: 'classId'
+    },
+    {
+      label: 'score',
+       value: 'score'
+     }
+  ];
+  const data = await model.getAssignments();
+
+  return downloadResource(res, 'assignment.csv', fields, data);
+ }
