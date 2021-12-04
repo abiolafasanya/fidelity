@@ -15,7 +15,7 @@ exports.generateTable = async () => {
     })
 
     .createTable("assignment_submission", (table) => {
-      table.increments("id").primary();
+      table.increments("id");
       table.string("name");
       table.string("files");
       table.string("studentClass");
@@ -49,7 +49,7 @@ exports.submitAssignment = (body) => {
 exports.gradeAssignment = (id, score) => {
   if (score == 0 || score > 0) 
     return db("assignment_submission")
-      .where("id", id )
+      .where({id: id})
       .update({ score: score })
   else return false
 };
