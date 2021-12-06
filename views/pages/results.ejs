@@ -54,10 +54,10 @@
                     >Delete</a
                   >
                   <a
-                    href="#staticBackdrop"
+                    href="#grade"
                     class="btn btn-secondary"
                     data-bs-toggle="modal" 
-                    data-bs-target="#staticBackdrop"
+                    data-bs-target="#staticBackdrop_<%= assignment.id %>"
                     >Grade</a
                     >
                   <%- include('../partials/grade_modal', {id: assignment.id}); %>

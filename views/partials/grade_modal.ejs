@@ -6,17 +6,14 @@
 <!-- Modal -->
 <div
   class="modal fade"
-  id="staticBackdrop"
+  id="staticBackdrop_<%= id %>"
   data-bs-backdrop="static"
   data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Grade Student</h5>
+        <h5 class="modal-title" id="gradeTitle">Grade Student</h5>
         <button
           type="button"
           class="btn-close"
@@ -26,9 +23,10 @@
       </div>
       <form action="/assignment/grade/<%= id %>" method="post">
         <div class="modal-body">
-          <label for="score">Grade Student Assignment</label>
+          <label for="score">Student Score</label>
           <input type="number" name="score" id="" class="form-control" />
-          <input type="hidden" name="student_id" value="<%= id %> " />
+          <!-- <label for="score">Student Id</label>
+          <input type="number" name="student_id" class="form-control" /> -->
         </div>
         <div class="modal-footer">
           <button

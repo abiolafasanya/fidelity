@@ -19,3 +19,5 @@ exports.downloadResource = async (res, fileName, fields, data) => {
   res.attachment(fileName);
   return res.send(csv);
 }
+
+//  staticBackdrop/<% id >%

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body class="">
+    <header><%- include('../partials/header'); %></header>
+    <!--  -->
+    <main>
+      <div class="container">
+        <div class="bg-light p-5 rounded">
+          <h1 class="text-center">Student Result</h1>
+        </div>
+        <div class="w-md-75 w-100 m-auto p-4 py-5">
+          <!--  -->
+          <section><%- include('../partials/messages'); %></section>
+
+          <% if(data.ok == true) {%>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">S/N</th>
+                  <th scope="col">Student Name</th>
+                  <th scope="col">Subject</th>
+                  <th scope="col">Files</th>
+                <th scope="col">Uploaded At</th>
+                <th scope="col">Score</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% data.assignments.forEach(function(assignment) { %>
+              <tr>
+                <th scope="row"><%= assignment.id %></th>
+                <td><%= assignment.name %></td>
+                <td><%= assignment.subject %></td>
+                <td><%= assignment.files %></td>
+                <td><%= new Date(assignment.submitted_at).toLocaleString() %></td>
+                <td><%= assignment.score || 0 %></td>
+                <td>
+                  <!--  -->
+                  <% if (assignment.files != "no file") { %>
+                  <a
+                    href="/files/<%= assignment.files %>"
+                    class="btn btn-primary"
+                    download="<%= assignment.name %>/assignment"
+                    >Download</a
+                  >
+                  <% } %>
+                  <a
+                  href="/assignment/delete/<%= assignment.id %>"
+                    class="btn btn-danger"
+                    >Delete</a
+                  >
+                  <a
+                    href="#grade"
+                    class="btn btn-secondary"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#staticBackdrop_<%= assignment.id %>"
+                    >Grade</a
+                    >
+                  <%- include('../partials/grade_modal', {id: assignment.id}); %>
+                </td>
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+          <% } else { %>
+          <div class="alert alert-info lead p-3 text-center h3">
+            No data to show
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </main>
+
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+</html>

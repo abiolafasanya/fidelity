@@ -47,6 +47,8 @@ exports.submitAssignment = (body) => {
 };
 
 exports.gradeAssignment = (id, score) => {
+  
+  if (score > 100) return false
   if (score == 0 || score > 0) 
     return db("assignment_submission").where({ id: id }).update({ score: score });
   else return false

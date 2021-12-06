@@ -31,6 +31,7 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.set("views", "views");
 app.set("port", PORT || 3000);
+const ip = require("public-ip")
 
 // routes component
 const route = (moduleName) => require(`./modules/${moduleName}/routes`);

@@ -6,7 +6,7 @@ exports.generateTable =  async () => {
   .createTable('users', table => {
     table.increments('id');
     table.string('username');
-    table.string('class');
+    table.string('classId');
     table.string('photo');
     table.string('student_id');
     table.string('password');
@@ -25,17 +25,28 @@ exports.generateTable =  async () => {
   })
 }
 
-exports.login = (email, password) => {
-    return db('users').select("*").where({email, password})
+exports.login = (username, password) => {
+    return db('users')
+      .where({username: username, password: password})
 }
 
-exports.register = (body) => {
+exports.getAll = () => {
+  return db('users').select("*")
+}
+
+exports.register = async (body) => {
     return db('users').insert(body)
 }
 
-exports.update = (id, body) => {
-    return db('users').update(body).where({id})
+exports.studentId = async (body) => {
+  return db('users').update(body).where({id})
+  
 }
+
+exports.update = (id, body) => {
+    return db('users').update({body}).where({id})
+}
+
 
 exports.delete = (id) => {
     return db('users').delete({id})	

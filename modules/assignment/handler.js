@@ -39,14 +39,14 @@ exports.getAssignments = async (req, res) => {
       assignments,
     };
     let message = await req.consumeFlash("message");
-    res.render("pages/index", { assignments, data, message });
+    res.render("pages/results", { assignments, data, message });
   } else {
     let data = {
       ok: false,
       message: "Assignment Available",
     };
     let message = await req.consumeFlash("message");
-    res.render("pages/index", { data, message });
+    res.render("pages/results", { data, message });
   }
 };
 
@@ -131,8 +131,14 @@ exports.createTable = async (req, res) => {
 };
 
 exports.grade = async (req, res) => {
+  // let id = req.body.student_id;
   let id = req.params.id;
   let score = req.body.score;
+  if(!id && !score) {
+    let message = "Assignment Not Graded unprocessed fields";
+    req.flash("message", message);
+    res.redirect("/assignment/results");
+  };
   let grade = await model.gradeAssignment(id, score);
   if (grade) {
     let message = "Assignment Graded";
