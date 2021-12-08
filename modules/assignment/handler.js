@@ -27,7 +27,7 @@ app.use(flash({ sessionKeyName: "flashMessage" }));
 exports.index = async (req, res) => {
   console.log("submit page");
   let message = await req.consumeFlash("info");
-  res.render("pages/submit", { ok: true, message });
+  res.render("pages/submit", { ok: true, message, loggedIn: true });
 };
 
 exports.getAssignments = async (req, res) => {
@@ -39,7 +39,7 @@ exports.getAssignments = async (req, res) => {
       assignments,
     };
     let message = await req.consumeFlash("message");
-    res.render("pages/results", { assignments, data, message });
+    res.render("pages/results", { assignments, data, message, loggedIn: true });
   } else {
     let data = {
       ok: false,
@@ -68,6 +68,7 @@ exports.submit = async (req, res) => {
   let submit = await model.submitAssignment(data);
   if (submit) {
     let message = "Assignment Submitted";
+    await req.flash("loggedIn", true);
     await req.flash("info", message);
     res.redirect("/assignment");
   }

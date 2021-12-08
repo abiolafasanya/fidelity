@@ -4,14 +4,13 @@ const model = require("./model");
 require("dotenv").config();
 const { SECRET } = process.env || "mysecret";
 
-
 exports.dashboard = async (req, res) => {
   let message = await req.consumeFlash("info");
-  res.render("pages/dashboard", { message });
+  res.render("pages/dashboard", { message, loggedIn: true });
 };
 
 exports.register = (req, res) => {
-  res.render("pages/register");
+  res.render("pages/register", { loggedIn: false });
 };
 
 exports.createUser = async (req, res) => {
@@ -38,7 +37,7 @@ exports.createUser = async (req, res) => {
 
 exports.loginPage = async (req, res) => {
   let message = await req.consumeFlash("info");
-  res.render("pages/login", { ok: true, message });
+  res.render("pages/login", { ok: true, message, loggedIn: false });
 };
 
 exports.getUsers = async (req, res) => {
@@ -48,64 +47,17 @@ exports.getUsers = async (req, res) => {
   } else res.status(404).json("no data");
 };
 
-// exports.login = async (req, res, next) => {
-//   let { password, username } = req.body;
-//   console.log(password, username);
-//   let user = await model.login({ username });
-//   if (!user || user == undefined || user == null) {
-//     let message = "user not found";
-//     req.flash("info", message);
-//     return res.status(404).redirect("/user/login");
-//   } else {
-//     console.log(user);
-//     let dbPwd = user.password || user[0].password;
-//     console.log({ db_password: dbPwd });
-//     let isPassword = bcrypt.compareSync(password, dbPwd);
-//     if (!isPassword) {
-//       console.log(false, "failed");
-//       res.status(400).json({
-//         ok: false,
-//         message: "Incorrect Password, User Login failed",
-//       });
-//     }
-//     console.log("payload area");
-//     const payload = {
-//       id: user.id,
-//       name: user.name,
-//       isAdmin: user.isAdmin,
-//       isTeacher: user.isTeacher,
-//       loggedIn: true,
-//     };
-//     const token = jwt.sign(payload, SECRET, { expiresIn: 86400 });
-//     let tokenUpdate = await model.updateToken(user.id, { token: token });
-
-//     if (tokenUpdate) {
-//       let message = { info: "Assignment Submitted", token };
-//       console.log(message);
-//       await req.flash("info", message);
-//       res.redirect("/user/dashboard");
-//     } else
-//       res.status(500).json({ ok: false, message: "token genration failed" });
-//   }
-//   next()
-// };
-
-exports.logins = async (req, res, next) => {
-  let { password, username } = req.body;
-  console.log(password, username);
-  if(username == '' || password == '') console.log('error')
-  // next()
-  passport.authenticate("local", {
-    successRedirect: "/user/results",
-    failureRedirect: "/user/login",
-    failureFlash: true,
-  });
-};
-
 exports.login = async (req, res, next) => {
-  console.log(req.headers);
+  // console.log(req.headers);
+  console.log("logging in process");
   console.log(req.body);
   next();
+};
+
+exports.logout = async (req, res) => {
+  console.log("logging in process");
+  req.logOut();
+  res.redirect("/user/login");
 };
 
 /**

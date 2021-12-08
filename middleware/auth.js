@@ -5,6 +5,15 @@ exports.auth = (req, res, next) => {
   else res.redirect("/user/login");
 };
 
+exports.isLoggedIn = (req, res, next) => {
+  if (req.isAuthenticated()){
+      console.log('you are already loggedIn')
+    return res.redirect("/assignment");
+  }
+  console.log('proceed to login')
+   next();
+};
+
 exports.admin = async (req, res, next) => {
   if (!req.user.isAdmin) {
     error({ message: "only admin are allowed", badge: true });

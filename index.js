@@ -9,21 +9,26 @@ const { flash } = require("express-flash-message");
 const passport = require("passport");
 const model = require("./modules/user/model");
 const initalizePassport = require("./utils/passportConfig");
+const methodOverride = require("method-override")
 
 initalizePassport(
   passport,
-  async (username) => await model.findOne({username: username}),
-  async (id) => await model.findOne({ id: id })
+  async (username) => await model.findOne({ username: username }),
+  async (id) =>
+    await model
+      .findOne({ id: id })
+      .then((user) => user.id)
+      .catch((e) => e.message)
 );
 
 // const flash = require("connect-flash")
-
+app.use(methodOverride('_method'))
 app.use(
   session({
     secret: "flashMessage",
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 3600 },
+    cookie: { maxAge: 84600 },
   })
 );
 app.use(passport.initialize());
