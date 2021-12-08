@@ -16,7 +16,7 @@ exports.generateTable = async () => {
     })
 
     .createTable("assignment_submission", (table) => {
-      table.increments("id").primary();
+      table.increments("id");
       table.string("name");
       table.string("files");
       table.string("studentClass");
