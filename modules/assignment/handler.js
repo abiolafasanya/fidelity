@@ -43,7 +43,7 @@ exports.getAssignments = async (req, res) => {
   } else {
     let data = {
       ok: false,
-      message: "Assignment Available",
+      message: "Assignment not Available",
     };
     let message = await req.consumeFlash("message");
     res.render("pages/results", { data, message });

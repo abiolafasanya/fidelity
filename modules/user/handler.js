@@ -4,6 +4,12 @@ const model = require("./model");
 require("dotenv").config();
 const { SECRET } = process.env || "mysecret";
 
+
+exports.dashboard = async (req, res) => {
+  let message = await req.consumeFlash("info");
+  res.render("pages/dashboard", { message });
+};
+
 exports.register = (req, res) => {
   res.render("pages/register");
 };
@@ -30,34 +36,76 @@ exports.createUser = async (req, res) => {
   console.log(user);
 };
 
-exports.loginPage = (req, res) => {
-  res.render("pages/login");
+exports.loginPage = async (req, res) => {
+  let message = await req.consumeFlash("info");
+  res.render("pages/login", { ok: true, message });
 };
 
 exports.getUsers = async (req, res) => {
-    let users= await model.getAll()
-    if(users.length > 0) {
-        res.status(200).json({data: users})
-    }
-    else res.status(404).json('no data')
-}
+  let users = await model.getAll();
+  if (users.length > 0) {
+    res.status(200).json({ data: users });
+  } else res.status(404).json("no data");
+};
 
-exports.login = async (req, res) => {
-  let { username, password } = req.body;
-  let user = await model.login(username);
-  if (user.length > 0) {
-    let isPassword = bcrypt.compareSync(password, user.password);
-    if (isPassword) {
-      let payload = { user };
-      let token = await jwt.sign(payload, SECRET, { expiresIn: 3600 });
-      res.status(200).render("pages/welcome", token);
-    } else {
-      res.status(500).render("pages/login");
-    }
-  }
-  console.log(username, password);
+// exports.login = async (req, res, next) => {
+//   let { password, username } = req.body;
+//   console.log(password, username);
+//   let user = await model.login({ username });
+//   if (!user || user == undefined || user == null) {
+//     let message = "user not found";
+//     req.flash("info", message);
+//     return res.status(404).redirect("/user/login");
+//   } else {
+//     console.log(user);
+//     let dbPwd = user.password || user[0].password;
+//     console.log({ db_password: dbPwd });
+//     let isPassword = bcrypt.compareSync(password, dbPwd);
+//     if (!isPassword) {
+//       console.log(false, "failed");
+//       res.status(400).json({
+//         ok: false,
+//         message: "Incorrect Password, User Login failed",
+//       });
+//     }
+//     console.log("payload area");
+//     const payload = {
+//       id: user.id,
+//       name: user.name,
+//       isAdmin: user.isAdmin,
+//       isTeacher: user.isTeacher,
+//       loggedIn: true,
+//     };
+//     const token = jwt.sign(payload, SECRET, { expiresIn: 86400 });
+//     let tokenUpdate = await model.updateToken(user.id, { token: token });
 
-  // res.render('pages/welcome')
+//     if (tokenUpdate) {
+//       let message = { info: "Assignment Submitted", token };
+//       console.log(message);
+//       await req.flash("info", message);
+//       res.redirect("/user/dashboard");
+//     } else
+//       res.status(500).json({ ok: false, message: "token genration failed" });
+//   }
+//   next()
+// };
+
+exports.logins = async (req, res, next) => {
+  let { password, username } = req.body;
+  console.log(password, username);
+  if(username == '' || password == '') console.log('error')
+  // next()
+  passport.authenticate("local", {
+    successRedirect: "/user/results",
+    failureRedirect: "/user/login",
+    failureFlash: true,
+  });
+};
+
+exports.login = async (req, res, next) => {
+  console.log(req.headers);
+  console.log(req.body);
+  next();
 };
 
 /**
@@ -65,7 +113,7 @@ exports.login = async (req, res) => {
  */
 exports.createTable = async (req, res) => {
   try {
-    let create = await model.generateTable();
+    let create = await model.up();
     if (create) {
       res.send("table created");
     } else {
@@ -74,5 +122,14 @@ exports.createTable = async (req, res) => {
   } catch (err) {
     console.log(err.message);
     res.send(err.message);
+  }
+};
+
+exports.removeTable = async (req, res) => {
+  let remove = await model.down();
+  if (remove) {
+    res.send("table dropped");
+  } else {
+    res.send("error: table not removed");
   }
 };

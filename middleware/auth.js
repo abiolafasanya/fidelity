@@ -1,36 +1,30 @@
-require("dotenv").config();
-const jwt = require("jsonwebtoken");
-const { SECRET } = process.env;
+const { info, error, success } = require("consola");
 
-module.exports = async (req, res, next) => {
-  const authHeader = req.headers.authorization;
+exports.auth = (req, res, next) => {
+  if (req.isAuthenticated()) return next();
+  else res.redirect("/user/login");
+};
 
-  // If token doesn't Exit
-  if (!authHeader) {
-    res.status(401).json({
-      status: 401,
-      message: "no token, authorization denied",
-    });
-    return;
+exports.admin = async (req, res, next) => {
+  if (!req.user.isAdmin) {
+    error({ message: "only admin are allowed", badge: true });
+    return res
+      .status(401)
+      .json({ ok: false, message: "only admins  are  allowed" });
   }
+  info({ message: "admin access granted...", badge: true });
+  success({ message: "processing dashboard...", badge: true });
+  next();
+};
 
-  const token = authHeader.split(" ")[1];
-
-  try {
-    await jwt.verify(token, SECRET, (err, user) => {
-      if (err) {
-        res.status(403).json({
-          status: 403,
-          message: "Token is not valid",
-        });
-        return;
-      }
-
-      req.user = user;
-
-      next();
+exports.teacher = async (req, res, next) => {
+  if (!req.user.isTeacher) {
+    error({ message: "only teachers are allowed", badge: true });
+    return res.status(401).json({
+      ok: false,
+      message: "only teachers have access to perform operation",
     });
-  } catch (err) {
-    res.status(500).json({ err: err.message });
   }
+  info({ message: "teacher access granted...", badge: true });
+  next();
 };

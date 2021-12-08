@@ -1,8 +1,9 @@
-const db = require("../../utils/db");
+const { dbmysql: db } = require("../../utils/db");
+// console.log(db)
 
 exports.generateTable = async () => {
   // Create a table
-  await db.schema
+ let create =  await db.schema
     .createTable("assignment", (table) => {
       table.increments("id");
       table.string("subject");
@@ -32,6 +33,7 @@ exports.generateTable = async () => {
       //     .unsigned()
       //     .references('accounts.id');
     });
+    return create
 };
 
 exports.getAssignments = (req, res) => {
@@ -47,11 +49,12 @@ exports.submitAssignment = (body) => {
 };
 
 exports.gradeAssignment = (id, score) => {
-  
-  if (score > 100) return false
-  if (score == 0 || score > 0) 
-    return db("assignment_submission").where({ id: id }).update({ score: score });
-  else return false
+  if (score > 100) return false;
+  if (score == 0 || score > 0)
+    return db("assignment_submission")
+      .where({ id: id })
+      .update({ score: score });
+  else return false;
 };
 
 exports.createAssignment = (body) => {

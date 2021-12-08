@@ -7,81 +7,36 @@
     <header><%- include('../partials/header'); %></header>
 
     <main>
-      <div class="container">
+      <div class="container w-100">
         <div class="bg-light p-5 rounded">
-          <h1 class="text-center">Registration</h1>
+          <h1 class="text-center">Login</h1>
         </div>
-        <div class="w-75 m-auto p-4 py-5">
+        <section>
+          <%- include('../partials/messages');  %> 
+        </section>
+        <div class="d-flex justify-content-center flex-column align-items-center  p-4 py-5">
           <form
-            action="/user/register"
+            action="/user/login"
             method="post"
-            enctype="multipart/form-data"
           >
-            <div class="input-group mb-3">
-              <span class="input-group-text" id=""
-                >@Student Name</span
-              >
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Student Name"
-                name="name"
-              />
+            <div class="form-group mb-3">
+              <label for="username">Username</label>
+              <input type="text" name="username" class="form-control" placeholder="Username or Student ID">
             </div>
-            <div class="input-group mb-3">
-              <label class="input-group-text" for="subject"
-                >Subject</label
-              >
-              <select
-                class="form-select"
-                id="subject"
-                name="subject"
-              >
-                <option selected>Open this select class</option>
-                <option value="computer">computer</option>
-                <option value="html">html</option>
-                <option value="data-processing">data-processing</option>
-                <option value="scratch">scratch</option>
-                <option value="english">english</option>
-                <option value="junior-physic">junior-physic</option>
-              </select>
+            
+            <div class="form-group mb-3">
+              <label for="password">Password</label>
+              <input type="password" name="password" class="form-control" placeholder="Password">
             </div>
-            <div class="input-group mb-3">
-              <label class="input-group-text" for="inputGroupSelect01"
-                >Options</label
-              >
-              <select
-                class="form-select"
-                id="inputGroupSelect01"
-                name="classId"
-              >
-                <option selected>Open this select class</option>
-                <option value="jss1">JSS1</option>
-                <option value="jss2">JSS2</option>
-                <option value="jss3">JSS3</option>
-                <option value="ss1">SS1</option>
-                <option value="ss2">SS2</option>
-                <option value="ss3">SS3</option>
-              </select>
-            </div>
-            <div class="input-group mb-3">
-              <input
-                type="file"
-                name="upload"
-                class="form-control"
-                id="inputGroupFile02"
-              />
-              <label class="input-group-text" for="inputGroupFile02"
-                >Upload</label
-              >
-            </div>
+            
             <div class="form-group">
               <input
                 type="submit"
-                value="Submit"
-                class="btn btn-primary"
+                value="Login"
+                class="btn btn-primary w-100"
                 name="submit"
               />
+              <span class="">Don't Have an Account? <a href="/user/register">Register</a></span>
             </div>
           </form>
         </div>
