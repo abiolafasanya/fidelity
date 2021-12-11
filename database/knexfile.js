@@ -1,4 +1,6 @@
 // Update with your config settings.
+require("dotenv").config();
+let {DATABASE_URL} = process.env
 
 module.exports = {
   development: {
@@ -51,11 +53,7 @@ module.exports = {
 
   production: {
     client: "postgresql",
-    connection: {
-      database: "my_db",
-      user: "username",
-      password: "password",
-    },
+    connection: DATABASE_URL,
     pool: {
       min: 2,
       max: 10,
