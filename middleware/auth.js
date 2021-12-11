@@ -1,3 +1,4 @@
+const {findOne} = require("../utils/helpers")
 const { info, error, success } = require("consola");
 
 exports.auth = (req, res, next) => {
@@ -15,7 +16,9 @@ exports.isLoggedIn = (req, res, next) => {
 };
 
 exports.admin = async (req, res, next) => {
-  if (!req.user.isAdmin) {
+  console.log(await req.user, 'user id')
+  let user = await findOne({id: await req.user})
+  if (!user.isAdmin) {
     error({ message: "only admin are allowed", badge: true });
     return res
       .status(401)
@@ -27,7 +30,8 @@ exports.admin = async (req, res, next) => {
 };
 
 exports.teacher = async (req, res, next) => {
-  if (!req.user.isTeacher) {
+  let user = await findOne({id: await req.user})
+  if (!user.isTeacher) {
     error({ message: "only teachers are allowed", badge: true });
     return res.status(401).json({
       ok: false,

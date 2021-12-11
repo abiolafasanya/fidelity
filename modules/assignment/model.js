@@ -1,9 +1,10 @@
-const { dbmysql: db } = require("../../utils/db");
-// console.log(db)
+const path = require("path");
+const knexConfig = require(path.resolve("./database/knexfile"));
+const db = require("knex")(knexConfig[process.env.NODE_ENV]);
 
 exports.generateTable = async () => {
   // Create a table
- let create =  await db.schema
+  let create = await db.schema
     .createTable("assignment", (table) => {
       table.increments("id");
       table.string("subject");
@@ -33,7 +34,7 @@ exports.generateTable = async () => {
       //     .unsigned()
       //     .references('accounts.id');
     });
-    return create
+  return create;
 };
 
 exports.getAssignments = (req, res) => {

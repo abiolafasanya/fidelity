@@ -2,14 +2,19 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const path = require("path");
-const db = require("./utils/db");
 const { PORT } = process.env || 3000;
 const session = require("express-session");
 const { flash } = require("express-flash-message");
+// const flash = require("connect-flash")
 const passport = require("passport");
 const model = require("./modules/user/model");
 const initalizePassport = require("./utils/passportConfig");
-const methodOverride = require("method-override")
+const methodOverride = require("method-override");
+
+//connection
+const knexConfig = require("./database/knexfile");
+// init knex
+// const knex = require("knex")(knexConfig[process.env.NODE_ENV]);
 
 initalizePassport(
   passport,
@@ -21,14 +26,13 @@ initalizePassport(
       .catch((e) => e.message)
 );
 
-// const flash = require("connect-flash")
-app.use(methodOverride('_method'))
+app.use(methodOverride("_method"));
 app.use(
   session({
     secret: "flashMessage",
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 84600 },
+    cookie: { maxAge: 1000 * 60 * 60 * 24 },
   })
 );
 app.use(passport.initialize());
@@ -47,6 +51,8 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.set("views", "views");
 app.set("port", PORT || 3000);
+// app.set("knex", require("knex")(knexConfig[process.env.NODE_ENV]));
+
 const ip = require("public-ip");
 
 // routes component
@@ -55,6 +61,7 @@ const route = (moduleName) => require(`./modules/${moduleName}/routes`);
 // routes -> for the modules
 app.use("/user", route("user"));
 app.use("/assignment", route("assignment"));
+app.use("/admin", route("admin"));
 
 const { notFoundErrorHandler, serverErrorHandler } = require("./utils/helpers");
 // app.use(serverErrorHandler);

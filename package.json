@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "migrate": "knex migrate:latest --knexfile database/knexfile.js",
+    "seed": "knex seed:run --knexfile database/knexfile.js"
   },
   "author": "fidelity school",
   "license": "ISC",
@@ -20,6 +22,7 @@
     "express": "^4.17.1",
     "express-flash-message": "^2.1.0",
     "express-session": "^1.17.2",
+    "joi": "^17.5.0",
     "json2csv": "^5.0.6",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.14",
@@ -32,6 +35,7 @@
     "passport-local": "^1.0.0",
     "public-ip": "^4.0.4",
     "sqlite3": "^5.0.2",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "xlsx": "^0.17.4"
   }
 }

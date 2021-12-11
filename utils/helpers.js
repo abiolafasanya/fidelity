@@ -1,5 +1,10 @@
 const ip = require("public-ip");
 const {Parser} = require('json2csv')
+const {dbmysql: db} = require("../utils/db")
+
+exports.findOne = (query) => {
+  return db('users').where(query).first()
+} 
 
 exports.serverErrorHandler = async (err, req, res, next) =>
   res.status(500).render("error", {
@@ -18,6 +23,19 @@ exports.downloadResource = async (res, fileName, fields, data) => {
   res.header('Content-Type', 'text/csv');
   res.attachment(fileName);
   return res.send(csv);
+}
+
+exports.validateInput = (data) => {
+  let {username, password, cpassword} = data
+  if (password !== cpassword) {
+    res.status(400).json({ ok: false, message: "password do not match" });
+  }
+  if (password.length < 8){
+    res.status(400).json({ ok: false, message: "password must be 8 digit and above" });
+  }
+  if (username.length < 3){
+    res.status(400).json({ ok: false, message: "username must be more than 3 digit" });
+  }
 }
 
 //  staticBackdrop/<% id >%

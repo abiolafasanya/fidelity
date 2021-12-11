@@ -16,9 +16,14 @@ const connection = {
   database: "fidelity",
 };
 
+const migrations = {
+  tableName: 'knex_migration'
+}
+
 const dbmysql = require("knex")({
   client: "mysql",
   connection,
+  migrations
 });
 
 module.exports = { dbmysql, dbsqlite };

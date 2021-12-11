@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const controller = require("./handler");
-const { upload } = require("../../utils/uploads");
+const path = require("path")
+const { upload } = require(path.resolve("utils/uploads"));
+const { auth, isLoggedIn } = require(path.resolve("middleware/auth"));
 const passport = require("passport");
-const { auth, isLoggedIn } = require("../../middleware/auth");
 
 router.get("/generateTable", controller.createTable);
 router.get("/register", isLoggedIn, controller.register);
@@ -14,14 +15,14 @@ router.post(
   isLoggedIn,
   controller.login,
   passport.authenticate("local", {
-    successRedirect: "/assignment/results",
+    successRedirect: "/user/dashboard",
     failureRedirect: "/user/login",
     failureFlash: true,
   })
 );
 router.delete("/logout", controller.logout);
 router.get("/all", controller.getUsers);
-router.get("/dashboard", controller.dashboard);
+router.get("/dashboard", auth, controller.dashboard);
 router.get("/clearDb", controller.removeTable);
 
 module.exports = router;

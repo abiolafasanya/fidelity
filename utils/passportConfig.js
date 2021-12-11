@@ -7,9 +7,9 @@ function initialize(passport, getUserbyUsername, getUserById) {
     if (user == null) {
       return done(null, false, { message: "no user with this username" });
     }
-
     try {
       if (bcrypt.compareSync(password, user.password)) {
+        
         return done(null, user);
       } else {
         return done(null, false, { message: "password incorrect" });
@@ -22,6 +22,8 @@ function initialize(passport, getUserbyUsername, getUserById) {
   passport.use(new LocalStrategy({ usernameField: "username" || "student_id" }, authenticate));
   passport.serializeUser((user, done) => done(null, user.id));
   passport.deserializeUser((id, done) => {
+    console.log(id)
+  
     return done(null, getUserById(id));
   });
 }
