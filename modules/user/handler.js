@@ -72,23 +72,6 @@ exports.logout = async (req, res) => {
   res.redirect("/user/login");
 };
 
-/**
- * @route create table /user/generateTable
- */
-exports.createTable = async (req, res) => {
-  try {
-    let create = await model.up();
-    if (create) {
-      res.send("table created");
-    } else {
-      res.send("error: table not created");
-    }
-  } catch (err) {
-    console.log(err.message);
-    res.send(err.message);
-  }
-};
-
 exports.removeTable = async (req, res) => {
   let remove = await model.down();
   if (remove) {

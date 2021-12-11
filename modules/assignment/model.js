@@ -2,41 +2,6 @@ const path = require("path");
 const knexConfig = require(path.resolve("./database/knexfile"));
 const db = require("knex")(knexConfig[process.env.NODE_ENV]);
 
-exports.generateTable = async () => {
-  // Create a table
-  let create = await db.schema
-    .createTable("assignment", (table) => {
-      table.increments("id");
-      table.string("subject");
-      table.string("studentClass");
-      table.string("name");
-      table.string("files");
-      table.string("description");
-      table.timestamp("created_at").defaultTo(db.fn.now());
-      table.date("due_date");
-    })
-
-    .createTable("assignment_submission", (table) => {
-      table.increments("id");
-      table.string("name");
-      table.string("files");
-      table.string("studentClass");
-      table.string("subject");
-      table.integer("score");
-      table.timestamp("submitted_at").defaultTo(db.fn.now());
-      table.string("due_date");
-      //   table
-      //     .integer('assignment_id')
-      //     .unsigned()
-      //     .references('assignment.id');
-      //   table
-      //     .integer('account_id')
-      //     .unsigned()
-      //     .references('accounts.id');
-    });
-  return create;
-};
-
 exports.getAssignments = (req, res) => {
   return db("assignment_submission").select("*");
 };

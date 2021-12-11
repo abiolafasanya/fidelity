@@ -113,22 +113,6 @@ exports.exportAssignment = (req, res) => {
   });
 };
 
-/**
- * @route create table /assignment/generateTable
- */
-exports.createTable = async (req, res) => {
-  try {
-    let create = await model.generateTable();
-    if (create) {
-      res.send("table created");
-    } else {
-      res.send("error: table not created");
-    }
-  } catch (err) {
-    console.log(err.message);
-    res.send(err.message);
-  }
-};
 
 exports.grade = async (req, res) => {
   // let id = req.body.student_id;
