@@ -13,8 +13,8 @@ exports.up = function (knex) {
 
     .createTable("assignment_submission", (table) => {
       table.increments("id");
-      table.integer("user_id").unsigned().references("user.id");
-      table.integer("assignment_id").unsigned().references("assignment.id");
+    //   table.integer("user_id").unsigned().references("user.id");
+    //   table.integer("assignment_id").unsigned().references("assignment.id");
       table.string("name");
       table.string("files");
       table.string("studentClass");
