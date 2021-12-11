@@ -7,12 +7,14 @@ exports.up = function (knex) {
       table.string("name");
       table.string("files");
       table.string("description");
-      table.timestamp("created_at").defaultTo(db.fn.now());
+      table.timestamps();
       table.date("due_date");
     })
 
     .createTable("assignment_submission", (table) => {
       table.increments("id");
+      table.integer("user_id").unsigned().references("user.id");
+      table.integer("assignment_id").unsigned().references("assignment.id");
       table.string("name");
       table.string("files");
       table.string("studentClass");
@@ -20,8 +22,6 @@ exports.up = function (knex) {
       table.integer("score");
       table.string("due_date");
       table.timestamps();
-      table.integer("assignment_id").unsigned().references("assignment.id");
-      table.integer("user_id").unsigned().references("user.id");
     });
 };
 
