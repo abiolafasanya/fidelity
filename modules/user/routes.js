@@ -22,7 +22,8 @@ router.post(
 );
 router.delete("/logout", controller.logout);
 router.get("/all", controller.getUsers);
-router.get("/dashboard", auth, controller.dashboard);
+// router.get("/dashboard", auth, controller.dashboard);
+router.get("/dashboard", controller.dashboard);
 router.get("/clearDb", controller.removeTable);
 
 module.exports = router;
