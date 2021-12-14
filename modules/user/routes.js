@@ -5,7 +5,6 @@ const { upload } = require(path.resolve("utils/uploads"));
 const { auth, isLoggedIn } = require(path.resolve("middleware/auth"));
 const passport = require("passport");
 
-router.get("/generateTable", controller.createTable);
 router.get("/register", isLoggedIn, controller.register);
 router.post("/register", isLoggedIn, upload.single("photo"), controller.createUser);
 
@@ -24,6 +23,5 @@ router.delete("/logout", controller.logout);
 router.get("/all", controller.getUsers);
 // router.get("/dashboard", auth, controller.dashboard);
 router.get("/dashboard", controller.dashboard);
-router.get("/clearDb", controller.removeTable);
 
 module.exports = router;

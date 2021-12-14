@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const path = require("path");
-const {findOne} = require(path.resolve("utils/helpers"));
+const { findOne } = require(path.resolve("utils/helpers"));
 const bcrypt = require("bcrypt");
 const model = require("./model");
 require("dotenv").config();
@@ -11,7 +11,7 @@ exports.dashboard = async (req, res) => {
   // console.log('from dashboard', await req.user);
   //  let user = await findOne({ id: await req.user });
   //  console.log(user)
-    res.render("pages/dashboard", { message, loggedIn: false});
+  res.render("pages/dashboard", { message, loggedIn: true });
 };
 
 exports.register = (req, res) => {
@@ -21,8 +21,14 @@ exports.register = (req, res) => {
 exports.createUser = async (req, res) => {
   let { first_name, last_name, username, classId, password, cpassword, role } =
     req.body;
+  //  console.log(req.body)
   if (password !== cpassword) {
     res.status(400).json({ ok: false, message: "password do not match" });
+  }
+  if (password.length < 8) {
+    res
+      .status(400)
+      .json({ ok: false, message: "password must be 8 character and above" });
   }
   // let photo = req.file === undefined || null ? "nopic.jpg" : req.file.filename;
   let isAdmin = role == "admin" ? true : false;

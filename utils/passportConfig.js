@@ -8,7 +8,7 @@ function initialize(passport, getUserbyUsername, getUserById) {
       return done(null, false, { message: "no user with this username" });
     }
     try {
-      if (bcrypt.compareSync(password, user.password)) {
+      if  (bcrypt.compareSync(password, user.password)) {
         
         return done(null, user);
       } else {

@@ -12,6 +12,13 @@
           visibility: hidden;
         }
       }
+      .nav-c:hover,
+      .nav-c:focus,
+      .nav-c:hover {
+        background: #ffffff26 !important;
+        transition: .5s ease-in-out;
+        color:#ffc107 !important;
+      }
     </style>
   </head>
   <body class="bg-light">
@@ -20,74 +27,11 @@
     <main>
       <section class="row">
         <!-- side bar start here -->
-        <aside class="col-sm-3 smh vh-100 bg-dark">
-          <div class="container-fluid text-light">
-            <div class="card-header fw-bold fs-3">Menu</div>
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                  <a class="nav-link text-light" href="#home">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-light" href="#result">Result</a>
-                </li>
-            </ul>
-        </aside>
+        <%- include('../partials/d-sidebar') %> 
         <!-- side bar end here -->
 
         <!-- dashboard content starts here -->
-        <content class="col-sm-9 col-12 vh-100 bg-light">
-          <div class="container-fluid">
-            <div class="row my-3">
-              <div class="col-md-12 fw-bold fs-3">DashBoard</div>
-            </div>
-            <div class="row">
-              <div class="col-md-3 mb-3">
-                <div class="card h-100 bg-primary">
-                  <div class="card-header">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title">Lorem, ipsum.</h5>
-                    <p class="card-text">
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 mb-3">
-                <div class="card h-100 bg-primary">
-                  <div class="card-header">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title">Lorem, ipsum.</h5>
-                    <p class="card-text">
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 mb-3">
-                <div class="card h-100 bg-primary">
-                  <div class="card-header">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title">Lorem, ipsum.</h5>
-                    <p class="card-text">
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 mb-3">
-                <div class="card h-100 bg-primary">
-                  <div class="card-header">Header</div>
-                  <div class="card-body">
-                    <h5 class="card-title">Lorem, ipsum.</h5>
-                    <p class="card-text">
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </content>
+       <%- include('../partials/d-content') %> 
         <!-- dashboard content ends here -->
       </section>
     </main>
