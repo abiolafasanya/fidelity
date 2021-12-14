@@ -12,13 +12,14 @@
           display: none;
           visibility: hidden;
         }
-        /* section.mobile-menu { */
-          /* display: block; */
-        /* } */
+        .mobile-menu {
+          display: flex;
+          visibility: visible;
+          padding-top: 2rem;
+        }
       }
       .mobile-menu {
-        display: none;
-        /* position: fixed !important; */
+        /* display: none; */
       }
       .nav-c:hover,
       .nav-c:focus,
@@ -32,7 +33,7 @@
   <body class="bg-light">
     <header><%- include('../partials/header'); %></header>
 
-    <main>
+    <main style="z-index: -1">
       <section class="row">
         <!-- side bar start here -->
         <%- include('../partials/d-sidebar') %>
@@ -42,16 +43,41 @@
         <%- include('../partials/d-content') %>
         <!-- dashboard content ends here -->
       </section>
-
-      <div class="position-fixed w-100 d-block py-2 px-2 bg-dark text-light">
-        <ul class="navbar-navs">
-          <li class="nav-link">Icons</li>
-          <li class="nav-link">Icons</li>
-          <li class="nav-link">Icons</li>
-        </ul>
-      </div>
-
     </main>
+
+    <section class="navbar border-top d-flex fixed-bottom w-100">
+      <div class="w-100">
+        <div class="w-100 bg-dark text-light">
+          <ul class="navbar-nav d-flex flex-row justify-content-evenly align-items-sm-center">
+            <li class="nav-item">
+              <a href="/user/dashboard" class="nav-link nav-c text-light">
+                <i class="fas fa-home"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/assignment" class="nav-link nav-c text-light">
+                <i class="fas fa-tasks"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/assignment/submit" class="nav-link nav-c text-light">
+                <i class="fas fa-book"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/assignment/notification" class="nav-link nav-c text-light">
+                <i class="fas fa-bell"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/assignment/settings" class="nav-link nav-c text-light">
+                <i class="fas fa-cog"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
     <footer><%- include('../partials/footer'); %></footer>
   </body>
