@@ -15,10 +15,9 @@
       }
       .footer {
         flex-shrink: 0;
+        display: none;
       }
-      .vh-100 {
-        height: 100vh;
-      }
+      
       @media screen and (max-width: 999px) {
         aside {
           display: none;
@@ -28,6 +27,9 @@
           display: flex;
           visibility: visible;
           padding-top: 2rem;
+        }
+        .footer { 
+          display: block;
         }
       }
       .mobile-menu {
