@@ -115,9 +115,9 @@
           </div>
         </div>
       </div>
-      <div class="col-md-12 col-lg-6 px-3">
+      <div class="col-md-6 col-lg-5 px-3">
         <div>
-          <canvas id="myChart" class="w-100"></canvas>
+          <canvas id="myChart" class="w-100" width="250" height="250"></canvas>
         </div>
       </div>
     </div>
@@ -134,12 +134,12 @@
 <script>
   const ctx = document.getElementById("myChart").getContext("2d");
   const myChart = new Chart(ctx, {
-    type: "pie",
+    type: "doughnut",
     data: {
-      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+      labels: ["HTML", "COMPUTER", "SCRATCH", "GEOGRAPHY", "DATA PROCESSING", "PHYSICS", "CCA"],
       datasets: [
         {
-          label: "# of Votes",
+          label: "Chart of Performance",
           data: [12, 19, 3, 5, 2, 3],
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
