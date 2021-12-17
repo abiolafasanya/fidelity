@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" href="/assignment">
-      <span class="text-blue fw-bold">Fidelity Submittion Portal</span>
+      <span class="text-warning">Fidelity Submittion Portal</span>
     </a>
     <button
       class="navbar-toggler"
@@ -22,7 +22,7 @@
         <li class="nav-item d-flex">
           <% if(loggedIn) { %> 
           <form action="/user/logout?_method=DELETE" method="post">
-              <button class="btn btn-blue mx-1" type="submit">LogOut</button>
+              <button class="btn btn-warning mx-1" type="submit">LogOut</button>
           </form>
           <% } else { %>
           <form action="/user/register" method="get">

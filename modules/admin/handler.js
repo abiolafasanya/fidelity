@@ -19,7 +19,7 @@ exports.superAdmin = async (req, res) => {
 
 exports.dashboard = async (req, res) => {
   let message = await req.consumeFlash("info");
-  res.render("admin/dashboard", { message, loggedIn: true });
+  res.render("admin/index", { message, loggedIn: true });
 };
 
 exports.register = (req, res) => {

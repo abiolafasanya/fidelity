@@ -7,7 +7,7 @@ let app = require("express").Router();
 const session = require("express-session");
 // const flash = require("connect-flash")
 const { flash } = require("express-flash-message");
-const { downloadResource } = require("../../utils/helpers");
+const { downloadResource, findOne } = require("../../utils/helpers");
 
 app.use(
   session({
@@ -25,8 +25,9 @@ app.use(flash({ sessionKeyName: "flashMessage" }));
  */
 exports.index = async (req, res) => {
   console.log("submit page");
-  let message = await req.consumeFlash("info");
-  res.render("pages/submit", { ok: true, message, loggedIn: true });
+  let message = await req.flash("info");
+  let student = await findOne(req.user)
+  res.render("pages/submit", { ok: true, message, loggedIn: true, student, async: true });
 };
 
 exports.getAssignments = async (req, res) => {
@@ -37,15 +38,15 @@ exports.getAssignments = async (req, res) => {
       message: "Assignment Available",
       assignments,
     };
-    let message = await req.consumeFlash("message");
+    let message = await req.flash("message");
     res.render("pages/results", { assignments, data, message, loggedIn: true });
   } else {
     let data = {
       ok: false,
       message: "Assignment not Available",
     };
-    let message = await req.consumeFlash("message");
-    res.render("pages/results", { data, message });
+    let message = await req.flash("message");
+    res.render("pages/results", { data, message, loggedIn: true });
   }
 };
 

@@ -1,6 +1,8 @@
 const ip = require("public-ip");
 const {Parser} = require('json2csv')
-const {dbmysql: db} = require("../utils/db")
+const path = require("path");
+const knexConfig = require(path.resolve("./database/knexfile"));
+const db = require("knex")(knexConfig[process.env.NODE_ENV]);
 
 exports.findOne = (query) => {
   return db('users').where(query).first()

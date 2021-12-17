@@ -5,7 +5,6 @@ const { upload } = require(path.resolve("utils/uploads"));
 const { auth, isLoggedIn } = require(path.resolve("middleware/auth"));
 
 // create table
-router.get("/generateTable", controller.createTable);
 router.get("/superAdmin", controller.superAdmin);
 
 router.get("/create-user", auth, controller.register);
@@ -20,6 +19,5 @@ router.get("/all", auth, controller.getUsers);
 router.get("/dashboard", auth, controller.dashboard);
 
 // destroy table
-router.get("/clearDb", controller.removeTable);
 
 module.exports = router;

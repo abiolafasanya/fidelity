@@ -7,7 +7,7 @@ require("dotenv").config();
 const { SECRET } = process.env || "mysecret";
 
 exports.dashboard = async (req, res) => {
-  let message = await req.consumeFlash("info");
+  let message = await req.flash("info");
   // console.log('from dashboard', await req.user);
   //  let user = await findOne({ id: await req.user });
   //  console.log(user)
@@ -47,14 +47,22 @@ exports.createUser = async (req, res) => {
   };
   let user = await model.register(data);
   if (user) {
-    res.status(200).redirect("/user/dashboard");
+    let message = "Registered Successfully";
+    await req.flash("loggedIn", false);
+    await req.flash("info", message);
+    res.status(200).redirect("/user/login");
   } else {
+    let message = "Registration failed";
+    await req.flash("loggedIn", false);
+    await req.flash("info", message);
+    await req.flash("messages");
     res.status(500).redirect("/user/login");
   }
 };
 
 exports.loginPage = async (req, res) => {
-  let message = await req.consumeFlash("info");
+  let message = await req.flash("info");
+  await req.flash("messages");
   res.render("pages/login", { ok: true, message, loggedIn: false });
 };
 

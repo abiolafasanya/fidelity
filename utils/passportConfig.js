@@ -5,6 +5,7 @@ function initialize(passport, getUserbyUsername, getUserById) {
   const authenticate = async (username, password, done) => {
     const user = await getUserbyUsername(username);
     if (user == null) {
+      console.log({ message: "no user with this username" })
       return done(null, false, { message: "no user with this username" });
     }
     try {
@@ -12,6 +13,7 @@ function initialize(passport, getUserbyUsername, getUserById) {
         
         return done(null, user);
       } else {
+        console.log({ message: "password incorrect" })
         return done(null, false, { message: "password incorrect" });
       }
     } catch (err) {
