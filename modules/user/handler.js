@@ -8,10 +8,12 @@ const { SECRET } = process.env || "mysecret";
 
 exports.dashboard = async (req, res) => {
   let message = await req.flash("info");
-  // console.log('from dashboard', await req.user);
-  //  let user = await findOne({ id: await req.user });
-  //  console.log(user)
-  res.render("pages/dashboard", { message, loggedIn: true });
+  console.log(await req.user);
+  let user = await findOne(req.user);
+  const { id, first_name, last_name, role, username, isAdmin, isTeacher } =
+    user;
+  let data = { id, first_name, last_name, username, role, isAdmin, isTeacher };
+  res.render("pages/dashboard", { message, loggedIn: true, data });
 };
 
 exports.register = (req, res) => {

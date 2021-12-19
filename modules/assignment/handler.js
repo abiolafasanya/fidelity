@@ -26,8 +26,13 @@ app.use(flash({ sessionKeyName: "flashMessage" }));
 exports.index = async (req, res) => {
   console.log("submit page");
   let message = await req.flash("info");
-  let student = await findOne(req.user)
-  res.render("pages/submit", { ok: true, message, loggedIn: true, student, async: true });
+  console.log(await req.user);
+  let student = await findOne(req.user);
+  const { id, first_name, last_name, role, username, isAdmin, isTeacher } = student;
+  let data = { id, first_name, last_name, username, role, isAdmin, isTeacher };
+  console.log(student);
+  
+  res.render("pages/submit", { loggedIn: true, message, data });
 };
 
 exports.getAssignments = async (req, res) => {
@@ -113,7 +118,6 @@ exports.exportAssignment = (req, res) => {
     counter++;
   });
 };
-
 
 exports.grade = async (req, res) => {
   // let id = req.body.student_id;

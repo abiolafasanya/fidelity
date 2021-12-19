@@ -28,10 +28,10 @@
               <input
                 type="text"
                 class="form-control"
-                placeholder="Student Name"
-                name="name"
-                value="<%= student.first_name " "+ student.last_name %> "
+                disabled
+                value="<%= data.first_name +" "+ data.last_name %>"
               />
+              <input type="hidden" name="name" value="<%= data.first_name +" "+ data.last_name %>">
             </div>
             <div class="input-group mb-3">
               <label class="input-group-text" for="inputGroupSelect01"
