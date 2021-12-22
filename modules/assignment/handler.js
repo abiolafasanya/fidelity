@@ -1,4 +1,3 @@
-const db = require("../../utils/db");
 const path = require("path");
 const { v4: uuid } = require("uuid");
 const model = require("./model");

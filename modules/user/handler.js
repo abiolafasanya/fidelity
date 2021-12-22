@@ -8,10 +8,10 @@ const { SECRET } = process.env || "mysecret";
 
 exports.dashboard = async (req, res) => {
   let message = await req.flash("info");
-  console.log(await req.user);
-  let user = await findOne(req.user);
+  let user = await findOne({id: await req.user});
   const { id, first_name, last_name, role, username, isAdmin, isTeacher } =
     user;
+    console.log("dashboard : ", {user}, req.user)
   let data = { id, first_name, last_name, username, role, isAdmin, isTeacher };
   res.render("pages/dashboard", { message, loggedIn: true, data });
 };
@@ -58,13 +58,12 @@ exports.createUser = async (req, res) => {
     await req.flash("loggedIn", false);
     await req.flash("info", message);
     await req.flash("messages");
-    res.status(500).redirect("/user/login");
+    res.status(500).redirect("/login");
   }
 };
 
 exports.loginPage = async (req, res) => {
-  let message = await req.flash("info");
-  await req.flash("messages");
+  let message = await req.flash().error || [];
   res.render("pages/login", { ok: true, message, loggedIn: false });
 };
 
@@ -76,7 +75,6 @@ exports.getUsers = async (req, res) => {
 };
 
 exports.login = async (req, res, next) => {
-  // console.log(req.headers);
   console.log("logging in process");
   console.log(req.body);
   next();
@@ -85,14 +83,5 @@ exports.login = async (req, res, next) => {
 exports.logout = async (req, res) => {
   console.log("logging in process");
   req.logOut();
-  res.redirect("/user/login");
-};
-
-exports.removeTable = async (req, res) => {
-  let remove = await model.down();
-  if (remove) {
-    res.send("table dropped");
-  } else {
-    res.send("error: table not removed");
-  }
+  res.redirect("/login");
 };

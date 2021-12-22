@@ -14,21 +14,21 @@
     <div class="collapse navbar-collapse" id="navmenu">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/user/dashboard">Home</a>
+          <a class="nav-link" href="/dashboard">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/assignment/results">Result</a>
         </li>
         <li class="nav-item d-flex">
           <% if(loggedIn) { %> 
-          <form action="/user/logout?_method=DELETE" method="post">
+          <form action="/logout?_method=DELETE" method="post">
               <button class="btn btn-blue mx-1" type="submit">LogOut</button>
           </form>
           <% } else { %>
-          <form action="/user/register" method="get">
+          <form action="/register" method="get">
               <button class="btn btn-secondary mx-1" type="submit">Register</button>
           </form>
-          <form action="/user/login" method="get">
+          <form action="/login" method="get">
               <button class="btn btn-success mx-1" type="submit">Login</button>
           </form>
           <% } %>

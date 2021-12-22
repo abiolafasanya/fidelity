@@ -6,7 +6,7 @@ exports.auth = async (req, res, next) => {
   else {
     let message = "You have to login";
     await req.flash("info", message);
-    res.redirect("/user/login")
+    res.redirect("/login")
   };
 };
 
@@ -15,7 +15,7 @@ exports.isLoggedIn = async (req, res, next) => {
     console.log("you are already loggedIn");
     let message = "You are already loggedIn";
     await req.flash("info", message);
-    return res.redirect("/user/dashboard");
+    return res.redirect("/dashboard");
   }
   console.log("proceed to login");
   next();

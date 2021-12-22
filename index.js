@@ -59,7 +59,8 @@ const ip = require("public-ip");
 const route = (moduleName) => require(`./modules/${moduleName}/routes`);
 
 // routes -> for the modules
-app.use("/user", route("user"));
+app.use("/", route("user"));
+// app.use("/user", route("user"));
 app.use("/assignment", route("assignment"));
 app.use("/admin", route("admin"));
 
