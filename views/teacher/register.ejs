@@ -157,10 +157,13 @@
         lname = document.getElementById("lname").value;
         pusername = document.getElementById("pusername");
 
+        // username = document.getElementById("username");
+        // let createdId = `FDS/${fname
+        //   .charAt(0)
+        //   .toLowerCase()}${lname.toLowerCase()}`;
+        date = new Date().getFullYear()
         username = document.getElementById("username");
-        let createdId = `FDS/${fname
-          .charAt(0)
-          .toLowerCase()}${lname.toLowerCase()}`;
+        let createdId = `fds/teacher/00<%= count++ %>`;
           username.value = createdId
           pusername.value = createdId
       }

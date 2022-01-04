@@ -1,6 +1,6 @@
 const joi = require("joi");
 const path = require("path");
-const { findOne } = require(path.resolve("utils/helpers"));
+const { findOne, countUser } = require(path.resolve("utils/helpers"));
 const bcrypt = require("bcrypt");
 const model = require("./model");
 require("dotenv").config();
@@ -22,14 +22,19 @@ exports.superAdmin = async (req, res) => {
 
 exports.dashboard = async (req, res) => {
   let message = await req.flash();
-  let data = await findOne({id: await req.user});
+  let data = await findOne({ id: await req.user });
 
   res.render("admin/index", { message, loggedIn: true, data });
 };
 
 exports.register = async (req, res) => {
-  let message = await req.flash("info")
-  res.render("admin/register", { loggedIn: true, message });
+  let message = await req.flash("info");
+  let count = await countUser();
+  res.render("admin/register", {
+    loggedIn: true,
+    message,
+    count: count.length + 1,
+  });
 };
 
 exports.createUser = async (req, res) => {
@@ -49,9 +54,18 @@ exports.createUser = async (req, res) => {
 
   let isAdmin = role == "admin" ? true : false;
   let isTeacher = role == "teacher" ? true : false;
-  classId = classId == '' ? null : classId
+  classId = classId == "" ? null : classId;
   password = bcrypt.hashSync(password, 10);
-  let data = { first_name, last_name, username, password, role, isAdmin, isTeacher, classId};
+  let data = {
+    first_name,
+    last_name,
+    username,
+    password,
+    role,
+    isAdmin,
+    isTeacher,
+    classId,
+  };
   let user = await model.create(data);
 
   if (user) {
@@ -71,27 +85,30 @@ exports.createUser = async (req, res) => {
 
 exports.getUsers = async (req, res) => {
   let users = await model.getAll();
+  let message = await req.flash();
+  let data = await findOne({ id: await req.user });
   if (users.length > 0) {
-    res.status(200).json({ data: users });
-  } else res.status(404).json("no data");
+    console.log("users:", users)
+    res.status(200).render("admin/users", {loggedIn: true, data, users, message });
+  }
 };
 
 exports.update = async (req, res) => {
-  let message = req.flash()
-  res.render("admin/update", {loggedIn: true, message})
-}
+  let message = req.flash();
+  res.render("admin/update", { loggedIn: true, message });
+};
 
 exports.student = async (req, res) => {
-  let message = req.flash()
-  res.render("admin/update", {loggedIn: true, message})
-}
+  let message = req.flash();
+  res.render("admin/update", { loggedIn: true, message });
+};
 
 exports.teacher = async (req, res) => {
-  let message = req.flash()
-  res.render("admin/update", {loggedIn: true, message})
-}
+  let message = req.flash();
+  res.render("admin/update", { loggedIn: true, message });
+};
 
 exports.profile = async (req, res) => {
-  let message = req.flash()
-  res.render("admin/update", {loggedIn: true, message})
-}
+  let message = req.flash();
+  res.render("admin/update", { loggedIn: true, message });
+};
