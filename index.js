@@ -60,9 +60,9 @@ const route = (moduleName) => require(`./modules/${moduleName}/routes`);
 
 // routes -> for the modules
 app.use("/", route("user"));
-// app.use("/user", route("user"));
 app.use("/assignment", route("assignment"));
 app.use("/admin", route("admin"));
+app.use("/teacher", route("teacher"))
 
 const { notFoundErrorHandler, serverErrorHandler } = require("./utils/helpers");
 // app.use(serverErrorHandler);

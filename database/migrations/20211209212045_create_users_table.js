@@ -11,7 +11,7 @@ exports.up = function (knex) {
     table.boolean("isAdmin");
     table.boolean("isTeacher");
     table.string("role");
-    table.timestamps("created_at");
+    table.timestamps();
   });
 };
 

@@ -21,11 +21,9 @@ exports.superAdmin = async (req, res) => {
 };
 
 exports.dashboard = async (req, res) => {
-  let message = await req.flash("info");
-  let user = await findOne(req.user);
-  const { id, first_name, last_name, role, username, isAdmin, isTeacher } =
-    user;
-  let data = { id, first_name, last_name, username, role, isAdmin, isTeacher };
+  let message = await req.flash();
+  let data = await findOne({id: await req.user});
+
   res.render("admin/index", { message, loggedIn: true, data });
 };
 
@@ -77,3 +75,23 @@ exports.getUsers = async (req, res) => {
     res.status(200).json({ data: users });
   } else res.status(404).json("no data");
 };
+
+exports.update = async (req, res) => {
+  let message = req.flash()
+  res.render("admin/update", {loggedIn: true, message})
+}
+
+exports.student = async (req, res) => {
+  let message = req.flash()
+  res.render("admin/update", {loggedIn: true, message})
+}
+
+exports.teacher = async (req, res) => {
+  let message = req.flash()
+  res.render("admin/update", {loggedIn: true, message})
+}
+
+exports.profile = async (req, res) => {
+  let message = req.flash()
+  res.render("admin/update", {loggedIn: true, message})
+}

@@ -6,8 +6,8 @@ exports.auth = async (req, res, next) => {
   else {
     let message = "You have to login";
     await req.flash("info", message);
-    res.redirect("/login")
-  };
+    res.redirect("/login");
+  }
 };
 
 exports.isLoggedIn = async (req, res, next) => {
@@ -26,23 +26,21 @@ exports.admin = async (req, res, next) => {
   let user = await findOne({ id: await req.user });
   if (!user.isAdmin) {
     error({ message: "only admin are allowed", badge: true });
-    return res
-      .status(401)
-      .json({ ok: false, message: "only admins  are  allowed" });
+    let message = "Only admin are allowed";
+    req.flash("info", message);
+    return res.status(401).redirect("/dashboard");
   }
   info({ message: "admin access granted...", badge: true });
-  success({ message: "processing dashboard...", badge: true });
   next();
 };
 
 exports.teacher = async (req, res, next) => {
   let user = await findOne({ id: await req.user });
   if (!user.isTeacher) {
+    let message = "only teachers have access to perform operation";
     error({ message: "only teachers are allowed", badge: true });
-    return res.status(401).json({
-      ok: false,
-      message: "only teachers have access to perform operation",
-    });
+    req.flash("info", message);
+    return res.status(401).redirect("/dashboard");
   }
   info({ message: "teacher access granted...", badge: true });
   next();

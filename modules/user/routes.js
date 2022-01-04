@@ -29,9 +29,10 @@ router.post(
     else res.redirect("/dashboard");
   }
 );
+
 router.delete("/logout", controller.logout);
 router.get("/user/all", controller.getUsers);
 router.get("/dashboard", auth, controller.dashboard);
-// router.get("/dashboard", controller.dashboard);
+router.get("/", controller.index);
 
 module.exports = router;

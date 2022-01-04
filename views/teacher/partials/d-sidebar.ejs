@@ -1,0 +1,38 @@
+<aside class="col-sm-3 smh h-100 bg-primary">
+  <div class="text-light">
+    <div class="row">
+      <div class="col-12 d-flex flex-column align-items-center justify-content-center py-3">
+        <img src="/icon/user.png" alt="user avatar" class="rounded-circle w-25">
+        <h6 class="text-light fw-bold my-2 lead"><%= data.first_name.toUpperCase() %> <%= data.last_name.toUpperCase() %></h6>
+      </div>
+      <hr>
+      <div class="col-12">
+      <ul class="navbar-nav py-2">
+          <li class="nav-item w-100">
+            <a class="nav-link text-light px-3 fs-5 my-2 nav-c" href="/admin/dashboard"><span class="fas fa-home mx-2"></span>Home</a>
+          </li>
+          <li class="nav-item w-100">
+            <a class="nav-link text-light px-3 fs-5 my-2 nav-c" href="/admin/create-user"><span class="fas fa-users mx-2"></span>Add New User</a>
+          </li>
+          <li class="nav-item w-100">
+            <a class="nav-link text-light px-3 fs-5 my-2 nav-c" href="/admin/users"><i class="fas fa-user-circle mx-2"></i> Users</a>
+          </li>
+          <li class="nav-item w-100">
+            <a class="nav-link text-light px-3 fs-5 my-2 nav-c" href="/assignment/teachers"><i class="fas fa-file mx-2"></i> Teachers</a>
+          </li>
+          <li class="nav-item w-100">
+            <a class="nav-link text-light px-3 fs-5 my-2 nav-c" href="/assignment/attendance"><i class="fas fa-calendar-check mx-2" aria-hidden="true"></i> Attendance</a>
+          </li>
+          <li class="nav-item w-100">
+            <a class="nav-link text-light px-3 fs-5 my-2 nav-c" href="/assignment/notification"><i class="fas fa-bell mx-2"></i> Notice Board</a>
+          </li>
+          <li class="nav-item w-100">
+            <!-- <a class="nav-link text-light px-3 fs-5 my-2 nav-c" href="/assignment/notification"><i class="fas fa-book-open mx-2"></i> Syllabus</a> -->
+          </li>
+          <li class="nav-item w-100">
+            <a class="nav-link text-light px-3 fs-5 my-2 nav-c" href="/assignment/update"><i class="fas fa-calendar-alt mx-2"></i> Update User</a>
+          </li>
+      </ul>
+    </div>
+  </div>
+  </aside>

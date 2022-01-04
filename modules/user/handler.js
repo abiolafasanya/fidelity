@@ -8,12 +8,14 @@ const { SECRET } = process.env || "mysecret";
 
 exports.dashboard = async (req, res) => {
   let message = await req.flash("info");
-  let user = await findOne({id: await req.user});
-  const { id, first_name, last_name, role, username, isAdmin, isTeacher } =
-    user;
-    console.log("dashboard : ", {user}, req.user)
-  let data = { id, first_name, last_name, username, role, isAdmin, isTeacher };
+  let data = await findOne({ id: await req.user });
+  console.log({ user_data: data });
+
   res.render("pages/dashboard", { message, loggedIn: true, data });
+};
+
+exports.index = (req, res) => {
+  res.render("pages/index", { loggedIn: false });
 };
 
 exports.register = (req, res) => {
@@ -63,7 +65,7 @@ exports.createUser = async (req, res) => {
 };
 
 exports.loginPage = async (req, res) => {
-  let message = await req.flash().error || [];
+  let message = (await req.flash().error) || [];
   res.render("pages/login", { ok: true, message, loggedIn: false });
 };
 

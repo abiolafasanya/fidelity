@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head'); %>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+      .content {
+        flex: 1 0 auto;
+      }
+      .footer {
+        flex-shrink: 0;
+        display: none;
+      }
+
+      @media screen and (max-width: 999px) {
+        aside {
+          display: none;
+          visibility: hidden;
+        }
+        .mobile-menu {
+          display: flex;
+          visibility: visible;
+          padding-top: 2rem;
+        }
+        .footer {
+          display: block;
+        }
+      }
+      .mobile-menu {
+        display: none;
+      }
+      .nav-c:hover,
+      .nav-c:focus,
+      .nav-c:hover {
+        background: #fdfeff !important;
+        transition: 0.5s ease-in-out;
+        color: #0772ff !important;
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+    <header><%- include('./partials/header'); %></header>
+
+    <main class="content">
+      <section class="row">
+        <!-- side bar start here -->
+        <%- include('./partials/d-sidebar') %>
+        <!-- side bar end here -->
+
+        <!-- dashboard content starts here -->
+        <%- include('./partials/d-content') %>
+        <!-- dashboard content ends here -->
+      </section>
+    </main>
+   
+    <%- include('./partials/mfooter'); %>
+    <%- include('./partials/foot'); %>
+  </body>
+</html>

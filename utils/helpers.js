@@ -4,9 +4,34 @@ const path = require("path");
 const knexConfig = require(path.resolve("./database/knexfile"));
 const db = require("knex")(knexConfig[process.env.NODE_ENV]);
 
-exports.findOne = (query) => {
-  // return db("users").where(query);
-  return db("users").where(query).first();
+exports.findOne = async (query) => {
+  let user = db("users").where(query).first();
+  const {
+    id,
+    first_name,
+    last_name,
+    role,
+    username,
+    classId,
+    isAdmin,
+    isTeacher,
+    created_at,
+    updated_at,
+  } = await user;
+
+  let data = {
+    id,
+    first_name,
+    last_name,
+    username,
+    classId,
+    role,
+    isAdmin,
+    isTeacher,
+    created_at,
+    updated_at,
+  };
+  return data;
 };
 
 exports.serverErrorHandler = async (err, req, res, next) =>
