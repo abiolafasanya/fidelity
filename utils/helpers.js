@@ -34,6 +34,12 @@ exports.findOne = async (query) => {
   return data;
 };
 
+exports.countUser = async () => {
+  let user = db("users")
+  return user
+}
+
+
 exports.serverErrorHandler = async (err, req, res, next) =>
   res.status(500).render("error", {
     errorMessage: err.message,

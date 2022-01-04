@@ -139,21 +139,20 @@
         </div>
       </div>
     </main>
-
     <script>
       function edValueKeyPress() {
-        let fname, lname, username, pusername;
+        let fname, lname, username, pusername, date;
         fname = document.getElementById("fname").value;
         lname = document.getElementById("lname").value;
         pusername = document.getElementById("pusername");
-
+        date = new Date().getFullYear()
         username = document.getElementById("username");
-        let createdId = `FDS/${fname
-          .charAt(0)
-          .toLowerCase()}${lname.toLowerCase()}`;
+        let createdId = `fds/student/00<%= count++ %>`;
           username.value = createdId
           pusername.value = createdId
       }
+          // .charAt(0)
+          // .toLowerCase()}${lname.toLowerCase()
     </script>
 
     <footer><%- include('../partials/foot'); %></footer>

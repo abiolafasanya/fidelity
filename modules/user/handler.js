@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const path = require("path");
-const { findOne } = require(path.resolve("utils/helpers"));
+const { findOne, countUser } = require(path.resolve("utils/helpers"));
 const bcrypt = require("bcrypt");
 const model = require("./model");
 require("dotenv").config();
@@ -18,8 +18,9 @@ exports.index = (req, res) => {
   res.render("pages/index", { loggedIn: false });
 };
 
-exports.register = (req, res) => {
-  res.render("pages/register", { loggedIn: false });
+exports.register = async (req, res) => {
+  let count = await countUser()
+  res.render("pages/register", { loggedIn: false, count: count.length + 1 });
 };
 
 exports.createUser = async (req, res) => {
