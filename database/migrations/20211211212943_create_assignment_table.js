@@ -21,7 +21,10 @@ exports.up = function (knex) {
       table.string("subject");
       table.integer("score");
       table.string("due_date");
-      table.timestamps();
+      table.time("created_at")
+      table.time("updated_at")
+      table.timestamp("created_at").defaultTo(knex.fn.now());
+      table.timestamp("updated_at").defaultTo(knex.fn.now());  
     });
 };
 

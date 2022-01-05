@@ -55,7 +55,7 @@ exports.createUser = async (req, res) => {
     let message = "Registered Successfully";
     await req.flash("loggedIn", false);
     await req.flash("info", message);
-    res.status(200).redirect("/user/login");
+    res.status(200).redirect("/login");
   } else {
     let message = "Registration failed";
     await req.flash("loggedIn", false);

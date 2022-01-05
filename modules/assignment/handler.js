@@ -26,7 +26,7 @@ exports.index = async (req, res) => {
   console.log("submit page");
   let message = await req.flash("info");
   console.log(await req.user);
-  let student = await findOne(req.user);
+  let student = await findOne({id: await req.user});
   const { id, first_name, last_name, role, username, isAdmin, isTeacher } = student;
   let data = { id, first_name, last_name, username, role, isAdmin, isTeacher };
   console.log(student);
@@ -42,6 +42,7 @@ exports.getAssignments = async (req, res) => {
       message: "Assignment Available",
       assignments,
     };
+    console.log(data)
     let message = await req.flash("message");
     res.render("pages/results", { assignments, data, message, loggedIn: true });
   } else {
