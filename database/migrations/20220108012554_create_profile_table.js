@@ -1,4 +1,5 @@
-exports.up = function (knex) {
+
+exports.up = function(knex) {
     return knex.schema
     .createTable("profile", (table) => {
   table.increments();
@@ -15,7 +16,7 @@ exports.up = function (knex) {
   table.timestamps(true, true);
 });
 }
-
-exports.down = function (knex) {
-  return knex.schema.dropTable("profile");
+exports.down = function(knex) {
+    return knex.schema.dropTable("profile");
 };
+

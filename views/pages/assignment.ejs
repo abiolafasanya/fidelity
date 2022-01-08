@@ -1,0 +1,68 @@
+<main>
+  <div class="container">
+    <div class="bg-light p-5 rounded">
+      <h1 class="text-center">Online Assignment Submittion</h1>
+    </div>
+    <div class="col-md-9 col-sm-12 m-auto p-4 py-5">
+      <form
+        action="/assignment/submit"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Student Name</span>
+          <input
+            type="text"
+            class="form-control"
+            disabled
+            value="<%= data.first_name %> <%= data.last_name %>"
+          />
+          <input type="hidden" name="name" value="<%= data.first_name +" "+ data.last_name %>">
+        </div>
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="inputGroupSelect01"
+            >Subject</label
+          >
+          <select class="form-select" id="inputGroupSelect01" name="subject">
+            <option selected>--Select One--</option>
+            <option value="computer">computer</option>
+            <option value="html">html</option>
+            <option value="data-processing">data-processing</option>
+            <option value="scratch">scratch</option>
+            <option value="english">english</option>
+            <option value="junior-physic">junior-physic</option>
+          </select>
+        </div>
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="inputGroupSelect01">Class</label>
+          <select class="form-select" id="inputGroupSelect01" name="classId">
+            <option selected>--Select One--</option>
+            <option value="jss1">JSS1</option>
+            <option value="jss2">JSS2</option>
+            <option value="jss3">JSS3</option>
+            <option value="ss1">SS1</option>
+            <option value="ss2">SS2</option>
+            <option value="ss3">SS3</option>
+          </select>
+        </div>
+        <div class="input-group mb-3">
+          <input
+            type="file"
+            name="upload"
+            class="form-control"
+            id="inputGroupFile02"
+          />
+          <label class="input-group-text" for="inputGroupFile02">Upload</label>
+        </div>
+        <div class="form-group">
+          <input
+            type="submit"
+            value="Submit"
+            class="btn btn-primary"
+            name="submit"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

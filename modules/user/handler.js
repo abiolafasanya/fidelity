@@ -19,7 +19,7 @@ exports.index = (req, res) => {
 };
 
 exports.register = async (req, res) => {
-  let count = await countUser()
+  let count = await countUser();
   res.render("pages/register", { loggedIn: false, count: count.length + 1 });
 };
 
@@ -87,4 +87,23 @@ exports.logout = async (req, res) => {
   console.log("logging in process");
   req.logOut();
   res.redirect("/login");
+};
+
+exports.dash = async (req, res) => {
+  let message = await req.flash();
+  let id = { id: await req.user }
+  let data = await findOne({ id: await req.user });
+  let assignments = await model.getAssignments();
+  let {user_id} = assignments[0]
+  console.log({ data, message, assignments, assignmentId: user_id });
+  const ass = assignments.filter(
+    (ass) => ass.user_id === id.id);
+  console.log("assignment Id: ", ass);
+  res.render("pages/dashboards", {
+    title: "Dashobard",
+    message,
+    loggedIn: true,
+    data,
+    assignments: ass,
+  });
 };

@@ -7,27 +7,28 @@ exports.up = function (knex) {
       table.string("name");
       table.string("files");
       table.string("description");
-      table.timestamps();
       table.date("due_date");
+      table.timestamps(true, true)
     })
 
     .createTable("assignment_submission", (table) => {
-      table.increments("id");
-    //   table.integer("user_id").unsigned().references("user.id");
-    //   table.integer("assignment_id").unsigned().references("assignment.id");
+      table.increments();
+      table.integer("user_id").unsigned().notNullable().references("id").inTable("users").onDelete("CASCADE");
+      //   table.integer("assignment_id").unsigned().references("assignment.id");
       table.string("name");
       table.string("files");
       table.string("studentClass");
       table.string("subject");
       table.integer("score");
       table.string("due_date");
-      table.time("created_at")
-      table.time("updated_at")
-      table.timestamp("created_at").defaultTo(knex.fn.now());
-      table.timestamp("updated_at").defaultTo(knex.fn.now());  
+      table.timestamps(true, true) 
     });
 };
 
 exports.down = function (knex) {
   return knex.schema.dropTable("assignment");
+};
+
+exports.down = function (knex) {
+  return knex.schema.dropTable("assignment_submission");
 };

@@ -24,14 +24,7 @@
       </svg>
 
       <div
-        class="
-          alert alert-primary
-          d-flex
-          align-items-center
-          alert-dismissible
-          fade
-          show
-        "
+        class="alert alert-primary d-flex align-items-center alert-dismissible fade show"
         role="alert"
       >
         <svg
@@ -60,7 +53,9 @@
       <div class="col-md-12 text-blue fw-bold fs-3">DashBoard</div>
     </div>
     <div class="row my-3">
-      <div class="col-md-12 lead">Welcome <b><%= data.first_name.toUpperCase() %></b></div>
+      <div class="col-md-12 lead">
+        Welcome <b><%= data.first_name.toUpperCase() %></b>
+      </div>
     </div>
     <div class="d-md-flex d-lg-flex">
       <div class="card bg-dark text-light my-3 px-3 mx-2">
@@ -134,9 +129,17 @@
 <script>
   const ctx = document.getElementById("myChart").getContext("2d");
   const myChart = new Chart(ctx, {
-    type: "doughnut",
+    type: "line",
     data: {
-      labels: ["HTML", "COMPUTER", "SCRATCH", "GEOGRAPHY", "DATA PROCESSING", "PHYSICS", "CCA"],
+      labels: [
+        "HTML",
+        "COMPUTER",
+        "SCRATCH",
+        "GEOGRAPHY",
+        "DATA PROCESSING",
+        "PHYSICS",
+        "CCA",
+      ],
       datasets: [
         {
           label: "Chart of Performance",

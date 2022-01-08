@@ -1,0 +1,77 @@
+:root {
+    --bs-blue: #0d6efd;
+    --bs-indigo: #6610f2;
+    --bs-purple: #6f42c1;
+    --bs-pink: #d63384;
+    --bs-red: #dc3545;
+    --bs-orange: #fd7e14;
+    --bs-yellow: #ffc107;
+    --bs-green: #198754;
+    --bs-teal: #20c997;
+    --bs-cyan: #0dcaf0;
+    --bs-white: #fff;
+    --bs-gray: #6c757d;
+    --bs-gray-dark: #343a40;
+    --bs-primary: #0d6efd;
+    --bs-secondary: #6c757d;
+    --bs-success: #198754;
+    --bs-info: #0dcaf0;
+    --bs-warning: #ffc107;
+    --bs-danger: #dc3545;
+    --bs-light: #f8f9fa;
+    --bs-dark: #212529;
+}
+
+body {
+    overflow-x: hidden;
+}
+.navbar {
+    z-index: 5;
+}
+.b-radius {
+  border-radius: 15px 0 15px 0 !important;
+  padding: 15px !important; 
+}
+aside {
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    left: 0;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+    transition: width, transform .4s;
+    color: var(--bs-light);
+    z-index: 5;
+}
+aside .aside-item:hover {
+    background-color: #fff !important;
+    color: var(--bs-primary) !important;
+}
+
+.main-section {
+    margin-left: 250px;
+    width: 100%;
+}
+
+input {
+    /* padding: 10px; */
+}
+
+aside .aside-item {
+    cursor: pointer;
+    padding: 5px 5px;
+}
+
+.main-wrapper {
+    /* display: flex; */
+    /* justify-content: space-between; */
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}

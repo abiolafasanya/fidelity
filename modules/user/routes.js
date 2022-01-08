@@ -24,6 +24,7 @@ router.post(
   }),
   async (req, res) => {
     console.log("Request User", req.user);
+    res.isLoggedIn = true
     if (req.user.isAdmin) return res.redirect("/admin");
     else if (req.user.isTeacher) return res.redirect("/teacher");
     else res.redirect("/dashboard");
@@ -32,7 +33,8 @@ router.post(
 
 router.delete("/logout", controller.logout);
 router.get("/user/all", controller.getUsers);
-router.get("/dashboard", auth, controller.dashboard);
+router.get("/dash", auth, controller.dashboard);
 router.get("/", controller.index);
+router.get("/dashboard", auth, controller.dash);
 
 module.exports = router;

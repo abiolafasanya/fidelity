@@ -1,0 +1,35 @@
+<aside class="bg-primary text-light lead" id="aside">
+  <div
+    class="col-12 d-flex flex-column align-items-center justify-content-center py-3"
+  >
+    <img src="/icon/user.png" alt="user avatar" class="rounded-circle w-25" />
+    <h6 class="text-light fw-bold my-2 lead">
+      <%= data.first_name.toUpperCase() %> <%= data.last_name.toUpperCase() %>
+    </h6>
+  </div>
+
+  <div class="aside-item my-1 mt-5" data-id="overview">
+    <i class="fas fa-tachometer-alt text-20 me-2"></i>
+    <span class="text-16">Overview</span>
+  </div>
+
+  <div data-id="assignment" class="aside-item">
+    <i class="fas fa-store text-20 me-2"></i>
+    <span class="text-16">Assignment</span>
+  </div>
+
+  <div class="my-1 aside-item" data-id="result">
+    <i class="fas fa-plus-circle text-20 me-2"></i>
+    <span class="text-16">Results</span>
+  </div>
+
+  <div class="my-1 aside-item" data-id="resources">
+    <i class="fas fa-map-marker-alt text-20 me-2"></i>
+    <span class="text-16">Resources</span>
+  </div>
+
+  <div class="my-1 aside-item" data-id="notification">
+    <i class="fas fa-map-marker-alt text-20 me-2"></i>
+    <span class="text-16">Notification</span>
+  </div>
+</aside>

@@ -26,11 +26,12 @@ exports.index = async (req, res) => {
   console.log("submit page");
   let message = await req.flash("info");
   console.log(await req.user);
-  let student = await findOne({id: await req.user});
-  const { id, first_name, last_name, role, username, isAdmin, isTeacher } = student;
+  let student = await findOne({ id: await req.user });
+  const { id, first_name, last_name, role, username, isAdmin, isTeacher } =
+    student;
   let data = { id, first_name, last_name, username, role, isAdmin, isTeacher };
   console.log(student);
-  
+
   res.render("pages/submit", { loggedIn: true, message, data });
 };
 
@@ -42,7 +43,7 @@ exports.getAssignments = async (req, res) => {
       message: "Assignment Available",
       assignments,
     };
-    console.log(data)
+    console.log(data);
     let message = await req.flash("message");
     res.render("pages/results", { assignments, data, message, loggedIn: true });
   } else {
@@ -63,6 +64,7 @@ exports.submit = async (req, res) => {
   let files = req.file === undefined || null ? "no file" : req.file.filename;
   let { name, classId, subject } = req.body;
   let data = {
+    user_id: await req.user,
     name,
     studentClass: classId,
     files,

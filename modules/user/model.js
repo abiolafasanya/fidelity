@@ -40,6 +40,11 @@ exports.updateToken = (id, token) => {
   return db("users").update(token).where("id", id);
 };
 
+exports.getAssignments = (req, res) => {
+  return db("assignment_submission").select("*");
+};
+
+
 // exports.up = async () => {
 //   // Create a table
 //   let create = await db.schema

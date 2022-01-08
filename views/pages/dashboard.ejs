@@ -1,65 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include('../partials/head'); %>
-    <style>
-      html,
-      body {
-        height: 100%;
-      }
-      body {
-        display: flex;
-        flex-direction: column;
-      }
-      .content {
-        flex: 1 0 auto;
-      }
-      .footer {
-        flex-shrink: 0;
-        display: none;
-      }
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <title>Dashboard</title>
+</head>
+<body>
+    <%- include('../partials/header') %>
 
-      @media screen and (max-width: 999px) {
-        aside {
-          display: none;
-          visibility: hidden;
-        }
-        .mobile-menu {
-          display: flex;
-          visibility: visible;
-          padding-top: 2rem;
-        }
-        .footer {
-          display: block;
-        }
-      }
-      .mobile-menu {
-        display: none;
-      }
-      .nav-c:hover,
-      .nav-c:focus,
-      .nav-c:hover {
-        background: #fdfeff !important;
-        transition: 0.5s ease-in-out;
-        color: #0772ff !important;
-      }
-    </style>
-  </head>
-  <body class="bg-light">
-    <header><%- include('../partials/header'); %></header>
+      <main class="main-wrapper">
+          <%- include('../partials/sidebar') %>
 
-    <main class="content">
-      <section class="row">
-        <!-- side bar start here -->
-        <%- include('../partials/d-sidebar', {data}) %>
-        <!-- side bar end here -->
+          <section class="main-section">
+              <div id="pages">
+                  <%- include('../pages/overview') %>
 
-        <!-- dashboard content starts here -->
-        <%- include('../partials/d-content', {data}) %>
-        <!-- dashboard content ends here -->
-      </section>
-    </main>
-    <%- include('../partials/mfooter'); %>
-     <%- include('../partials/foot'); %>
-  </body>
+                  <div id="assignment">
+                    <div class="container">
+                        <div class="row my-3">
+                              <%- include('../pages/assignment'); %>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="result">
+                    <div class="container">
+                        <div class="row my-3">
+                            <%- include('../pages/result'); %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          </section>
+      </main>
+
+
+      
+
+    <!-- Scripts Area -->
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/app.js"></script>
+</body>
 </html>
