@@ -99,7 +99,7 @@ exports.dash = async (req, res) => {
   const ass = assignments.filter(
     (ass) => ass.user_id === id.id);
   console.log("assignment Id: ", ass);
-  res.render("pages/dashboards", {
+  res.render("pages/dashboard", {
     title: "Dashobard",
     message,
     loggedIn: true,

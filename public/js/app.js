@@ -5,7 +5,6 @@ class UI {
     return this.#initialPage;
   }
 
- 
   tag(name) {
     return document.querySelector(name);
   }
@@ -62,4 +61,61 @@ class UI {
 }
 UI.start();
 
-const ui = new UI();
+// fetch result from submitted
+
+let submitAssignment = document.querySelector("#submitAssignment");
+let form = document.querySelector("form");
+let formArea = document.querySelector("#formArea");
+submitAssignment.addEventListener("submit", (e) => {
+  e.preventDefault();
+  console.log("yeah asssignment submiited");
+  let name, classId, subject, upload;
+  name = e.target.name.value;
+  classId = e.target.classId.value;
+  subject = e.target.subject.value;
+  upload = e.target.upload.files[0];
+  console.log(name, classId, subject, upload);
+  let payload = {
+    name,
+    classId,
+    subject,
+    upload,
+  };
+  const msgAlert = document.createElement("div");
+  fetch("/assignment/submit", {
+    method: "post",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  }).then((data) => {
+    if (data.ok) {
+      console.log(data.ok, data.message);
+      let msg = document.createTextNode(data.message);
+      msgAlert.appendChild(msg);
+      msgAlert.classList.add("alert", "alert-success");
+      formArea.insertBefore(msgAlert, form);
+      setTimeout(() => {
+        msgAlert.className = "hidden";
+      }, 6000);
+      name.value = "";
+      subject.value = "";
+      classId.value = "";
+      upload.value = "";
+    } else {
+      console.log("failed");
+      let msg = document.createTextNode(data.message || "Submittion Failed");
+      msgAlert.appendChild(msg);
+      msgAlert.classList.add("alert", "alert-danger");
+      formArea.insertBefore(msgAlert, form);
+      setTimeout(() => {
+        msgAlert.classList.add("hidden");
+      }, 8000);
+      name.value = "";
+      subject.value = "";
+      classId.value = "";
+      upload.value = "";
+    }
+  });
+});

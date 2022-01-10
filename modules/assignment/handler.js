@@ -61,23 +61,23 @@ exports.getAssignments = async (req, res) => {
  */
 exports.submit = async (req, res) => {
   // console.log("submit assignment");
-  let files = req.file === undefined || null ? "no file" : req.file.filename;
-  let { name, classId, subject } = req.body;
+  let files = req.file === undefined || null ? "no file" : req.file.filename || req.body.upload;
+  let { name, classId, subject, upload } = req.body;
   let data = {
     user_id: await req.user,
     name,
     studentClass: classId,
-    files,
+    files: files ,
     subject,
     due_date: "",
   };
-  console.log(data);
+  console.log(data, {checks: await req.body});
   let submit = await model.submitAssignment(data);
   if (submit) {
     let message = "Assignment Submitted";
     await req.flash("loggedIn", true);
-    await req.flash("info", message);
-    res.redirect("/assignment");
+    // res.redirect("/dashboard");
+    res.status(200).json({ message, ok: true });
   }
 };
 

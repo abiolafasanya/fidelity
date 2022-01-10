@@ -24,7 +24,7 @@ router.post(
   }),
   async (req, res) => {
     console.log("Request User", req.user);
-    res.isLoggedIn = true
+    req.flash("loggedIn", true)
     if (req.user.isAdmin) return res.redirect("/admin");
     else if (req.user.isTeacher) return res.redirect("/teacher");
     else res.redirect("/dashboard");

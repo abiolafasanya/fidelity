@@ -28,7 +28,7 @@
             <td><%= assignment.name %></td>
             <td><%= assignment.subject %></td>
             <td><%= assignment.files %></td>
-            <td><%= new Date(assignment.submitted_at).toLocaleString() %></td>
+            <td><%= new Date(assignment.created_at).toLocaleString() %></td>
             <td><%= assignment.score || 0 %></td>
             <td>
               <!--  -->
