@@ -15,7 +15,10 @@ exports.isLoggedIn = async (req, res, next) => {
     console.log("you are already loggedIn");
     let message = "You are already loggedIn";
     await req.flash("info", message);
-    return res.redirect("/dashboard");
+    let user = await findOne({ id: await req.user });
+    if (user.isAdmin) return res.redirect("/admin");
+    else if (user.isTeacher) return res.redirect("/teacher");
+    else res.redirect("/dashboard");
   }
   console.log("proceed to login");
   next();

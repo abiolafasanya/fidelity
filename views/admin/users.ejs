@@ -1,66 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <%- include('./partials/head'); %>
-    <style>
-      html,
-      body {
-        height: 100%;
-      }
-      body {
-        display: flex;
-        flex-direction: column;
-      }
-      .content {
-        flex: 1 0 auto;
-      }
-      .footer {
-        flex-shrink: 0;
-        display: none;
-      }
+<main>
+  <div class="container">
+    <div class="bg-light p-5 rounded">
+      <h1 class="text-center">All Users</h1>
+    </div>
+    <div class="w-md-75 w-100 m-auto p-4 py-5">
+      <!--  -->
+      <section><%- include('../partials/messages'); %></section>
 
-      @media screen and (max-width: 999px) {
-        aside {
-          display: none;
-          visibility: hidden;
-        }
-        .mobile-menu {
-          display: flex;
-          visibility: visible;
-          padding-top: 2rem;
-        }
-        .footer {
-          display: block;
-        }
-      }
-      .mobile-menu {
-        display: none;
-      }
-      .nav-c:hover,
-      .nav-c:focus,
-      .nav-c:hover {
-        background: #fdfeff !important;
-        transition: 0.5s ease-in-out;
-        color: #0772ff !important;
-      }
-    </style>
-  </head>
-  <body class="bg-light">
-    <header><%- include('./partials/header'); %></header>
-
-    <main class="content">
-      <section class="row">
-        <!-- side bar start here -->
-        <%- include('./partials/d-sidebar') %>
-        <!-- side bar end here -->
-
-        <!-- dashboard content starts here -->
-        <%- include('./partials/con-users') %>
-        <!-- dashboard content ends here -->
-      </section>
-    </main>
-   
-    <%- include('./partials/mfooter'); %>
-    <%- include('./partials/foot'); %>
-  </body>
-</html>
+      <div class="row">
+        <div class="col-12 text-blue lead py-2 fw-bold">List of Users</div>
+      </div>
+      <div class="row">
+        <% users.forEach(user => { %>
+              <ul class="list-group my-1">
+                  <li class="list-group-item d-flex justify-content-between">
+                      <div class="lead text-capitalize"><%= user.first_name %> <%= user.last_name %></div>
+                      <div>
+                          <button class="btn btn-primary">Edit</button>
+                          <button class="btn btn-danger">Delete</button>
+                      </div>
+                  </li>
+              </ul>
+              <% }) %>
+          </div>
+     
+    </div>
+  </div>
+</main>

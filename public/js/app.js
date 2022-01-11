@@ -75,47 +75,46 @@ submitAssignment.addEventListener("submit", (e) => {
   subject = e.target.subject.value;
   upload = e.target.upload.files[0];
   console.log(name, classId, subject, upload);
-  let payload = {
-    name,
-    classId,
-    subject,
-    upload,
-  };
-  const msgAlert = document.createElement("div");
+
+  const formData = new FormData();
+  formData.append("upload", upload);
+  formData.append("subject", subject);
+  formData.append("name", name);
+  formData.append("classId", classId);
+  
+
   fetch("/assignment/submit", {
     method: "post",
     credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
+    body: formData,
   }).then((data) => {
     if (data.ok) {
       console.log(data.ok, data.message);
-      let msg = document.createTextNode(data.message);
-      msgAlert.appendChild(msg);
-      msgAlert.classList.add("alert", "alert-success");
-      formArea.insertBefore(msgAlert, form);
-      setTimeout(() => {
-        msgAlert.className = "hidden";
-      }, 6000);
-      name.value = "";
-      subject.value = "";
-      classId.value = "";
-      upload.value = "";
+      alert("Assignment Submitted")
+      e.target.name.value = "";
+      e.target.subject.value = "";
+      e.target.classId.value = "";
+      e.target.upload.value = "";
     } else {
       console.log("failed");
-      let msg = document.createTextNode(data.message || "Submittion Failed");
-      msgAlert.appendChild(msg);
-      msgAlert.classList.add("alert", "alert-danger");
-      formArea.insertBefore(msgAlert, form);
-      setTimeout(() => {
-        msgAlert.classList.add("hidden");
-      }, 8000);
-      name.value = "";
-      subject.value = "";
-      classId.value = "";
-      upload.value = "";
+      alert("Assignment not Submitted")
+      e.target.name.value = "";
+      e.target.subject.value = "";
+      e.target.classId.value = "";
+      e.target.upload.value = "";
     }
   });
 });
+
+// fetch for grade assignment for teacher
+
+// let gradeAssignment = document.querySelector("#gradeAssignment")
+
+// gradeAssignment.addEventListener("submit", e => {
+
+//   fetch(`/assignment/grade/`, {
+//     method: "post",
+//     credentials: "same-origin",
+//     body: formData,
+//   })
+// })

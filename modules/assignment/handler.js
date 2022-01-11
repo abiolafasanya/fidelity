@@ -22,6 +22,15 @@ app.use(flash({ sessionKeyName: "flashMessage" }));
 /**
  * @route index page /assignment/generateTable
  */
+
+exports.dashboard = async (req, res) => {
+  let message = await req.flash("info");
+  let data = await findOne({ id: await req.user });
+  console.log({ user_data: data });
+
+  res.render("teacher/index", { message, loggedIn: true, data });
+};
+
 exports.index = async (req, res) => {
   console.log("submit page");
   let message = await req.flash("info");
@@ -61,23 +70,25 @@ exports.getAssignments = async (req, res) => {
  */
 exports.submit = async (req, res) => {
   // console.log("submit assignment");
-  let files = req.file === undefined || null ? "no file" : req.file.filename || req.body.upload;
+  let files =
+    req.file === undefined || null
+      ? "no file"
+      : req.file.filename || req.body.upload;
   let { name, classId, subject, upload } = req.body;
   let data = {
     user_id: await req.user,
     name,
     studentClass: classId,
-    files: files ,
+    files,
     subject,
     due_date: "",
   };
-  console.log(data, {checks: await req.body});
+  console.log(data);
   let submit = await model.submitAssignment(data);
   if (submit) {
-    let message = "Assignment Submitted";
     await req.flash("loggedIn", true);
     // res.redirect("/dashboard");
-    res.status(200).json({ message, ok: true });
+    res.status(200).json({ message: "Assignment Submitted", ok: true });
   }
 };
 
@@ -88,13 +99,8 @@ exports.deleteAssignment = async (req, res) => {
   if (assignment) {
     let message = "Assignment Deleted";
     req.flash("message", message);
-    res.redirect("/assignment/results");
+    res.redirect("/admin");
   }
-};
-
-let dateFormat = (date) => {
-  date.toLocaleString();
-  return date;
 };
 
 exports.exportAssignment = (req, res) => {
@@ -134,37 +140,15 @@ exports.grade = async (req, res) => {
   if (grade) {
     let message = "Assignment Graded";
     req.flash("message", message);
-    res.redirect("/assignment/results");
+    res.redirect("/teacher");
   } else {
     let message = "Assignment Not Graded";
     req.flash("message", message);
-    res.redirect("/assignment/results");
+    res.redirect("/teacher");
   }
   // console.log(id, score);
 };
 
-exports.downloadExcel = async (req, res) => {
-  let controller = {};
-
-  let fields = [
-    {
-      label: "username",
-      value: "username",
-    },
-    {
-      label: "subject",
-      value: "subject",
-    },
-    {
-      label: "class",
-      value: "classId",
-    },
-    {
-      label: "score",
-      value: "score",
-    },
-  ];
-  const data = await model.getAssignments();
-
-  return downloadResource(res, "assignment.csv", fields, data);
+exports.createTask = (req, res) => {
+  res.json("creat task handler");
 };

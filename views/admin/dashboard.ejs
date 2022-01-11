@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/app.css" />
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
-    <title>Teacher -- Dashboard</title>
+    <title>Admin -- Dashboard</title>
   </head>
   <body>
     <%- include('../partials/header') %>
@@ -16,17 +16,23 @@
 
       <section class="main-section">
         <div id="pages">
-          <%- include('../teacher/overview') %>
+          <%- include('../admin/overview') %>
 
           <div id="assignment">
             <div class="container">
-              <div class="row my-3"><%- include('../teacher/assignment'); %></div>
+              <div class="row my-3"><%- include('../admin/assignment'); %></div>
             </div>
           </div>
 
-          <div id="createTask">
+          <div id="user">
             <div class="container">
-              <div class="row my-3"></div><%- include('../teacher/create-task');  %></div>
+              <div class="row my-3"></div><%- include('../admin/users') %></div>
+            </div>
+          </div>
+
+          <div id="addUser">
+            <div class="container">
+              <div class="row my-3"></div><%- include('../admin/add-user');  %></div>
             </div>
           </div>
 

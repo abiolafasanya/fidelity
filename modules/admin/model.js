@@ -31,29 +31,6 @@ exports.delete = (id) => {
   return db("users").delete({ id });
 };
 
-exports.up = async () => {
-  // Create a table
- let create =  await db.schema
-    .createTable("users", (table) => {
-      table.increments("id");
-      table.string("username");
-      table.string("classId");
-      table.string("photo");
-      table.string("teacher_id");
-      table.string("password");
-      table.boolean("isTeacher");
-      table.timestamp("created_at").defaultTo(db.fn.now());
-    })
-    // ...and another
-    .createTable("profile", (table) => {
-      table.increments("id");
-      table.string("username");
-      table.integer("user_id").unsigned().references("users.id");
-    });
-    return create
+exports.getAssignments = (req, res) => {
+  return db("assignment_submission").select("*");
 };
-
-exports.down =  async () => {
-  return await db.schema
-  .dropTableIfExists("users")
-}

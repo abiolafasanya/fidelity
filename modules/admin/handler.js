@@ -22,15 +22,18 @@ exports.superAdmin = async (req, res) => {
 
 exports.dashboard = async (req, res) => {
   let message = await req.flash();
+  let users = await model.getAll();
   let data = await findOne({ id: await req.user });
-
-  res.render("admin/index", { message, loggedIn: true, data });
+  let count = await countUser();
+  console.log("teacher", { user_data: data });
+  let assignments = await model.getAssignments();
+  res.render("admin/dashboard", { message, loggedIn: true, data, users, assignments, count: count.length + 1, });
 };
 
 exports.register = async (req, res) => {
   let message = await req.flash("info");
   let count = await countUser();
-  res.render("admin/register", {
+  res.render("admin/add-user", {
     loggedIn: true,
     message,
     count: count.length + 1,
@@ -72,13 +75,13 @@ exports.createUser = async (req, res) => {
     let message = "User Created Successfully";
     await req.flash("loggedIn", false);
     await req.flash("info", message);
-    res.status(200).redirect("/admin/create-user");
+    res.status(200).redirect("/admin");
   } else {
     let message = "User creation failed";
     await req.flash("loggedIn", false);
     await req.flash("info", message);
     await req.flash("messages");
-    res.status(500).redirect("/admin/create-user");
+    res.status(500).redirect("/admin");
   }
   console.log(user);
 };
@@ -88,8 +91,10 @@ exports.getUsers = async (req, res) => {
   let message = await req.flash();
   let data = await findOne({ id: await req.user });
   if (users.length > 0) {
-    console.log("users:", users)
-    res.status(200).render("admin/users", {loggedIn: true, data, users, message });
+    console.log("users:", users);
+    res
+      .status(200)
+      .render("admin/users", { loggedIn: true, data, users, message });
   }
 };
 

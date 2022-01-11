@@ -19,153 +19,142 @@
             method="post"
             enctype="multipart/form-data"
           >
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="" class="fw-bold">Firstname</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="First Name"
-                        name="first_name"
-                        id="fname"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="" class="fw-bold">Lastname</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Last Name"
-                        name="last_name"
-                        id="lname"
-                        onKeyPress="edValueKeyPress()"
-                        onKeyUp="edValueKeyPress()"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="input-group my-3">
-                  <span
-                    class="input-group-text bg-primary text-light fw-bold"
-                    id=""
-                    >Username</span
-                  >
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="" class="fw-bold">Firstname</label>
                   <input
                     type="text"
                     class="form-control"
-                    disabled
-                    placeholder="Username will be automatically generated"
-                    id="username"
+                    placeholder="First Name"
+                    name="first_name"
+                    id="fname"
                   />
                 </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="" class="fw-bold">Lastname</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Last Name"
+                    name="last_name"
+                    id="lname"
+                    onKeyPress="edValueKeyPress()"
+                    onKeyUp="edValueKeyPress()"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group my-3">
+              <span class="input-group-text bg-primary text-light fw-bold" id=""
+                >Username</span
+              >
+              <input
+                type="text"
+                class="form-control"
+                disabled
+                placeholder="Username will be automatically generated"
+                id="username"
+              />
+            </div>
+            <input
+              type="hidden"
+              class="form-control"
+              name="username"
+              id="pusername"
+            />
+
+            <div class="input-group mb-3">
+              <label class="input-group-text fw-bold" for="class">Class</label>
+              <select class="form-select" id="class" name="classId">
+                <option selected>Open this select class</option>
+                <option value="jss1">JSS1</option>
+                <option value="jss2">JSS2</option>
+                <option value="jss3">JSS3</option>
+                <option value="ss1">SS1</option>
+                <option value="ss2">SS2</option>
+                <option value="ss3">SS3</option>
+                <option value="ss3">None</option>
+              </select>
+            </div>
+
+            <div class="input-group mb-3">
+              <label class="input-group-text" for="role">Role</label>
+              <select class="form-select" id="role" name="role">
+                <option selected>Select user type</option>
+                <option value="user">user</option>
+                <option value="teacher">teacher</option>
+                <option value="admin">admin</option>
+              </select>
+            </div>
+
+            <h6>Gender</h6>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="gender"
+                id="gender"
+                value="male"
+              />
+              <label class="form-check-label" for="gender"> Male </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="gender"
+                id="gender"
+                value="female"
+              />
+              <label class="form-check-label" for="gender"> Female </label>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="" class="fw-bold">Password</label>
                 <input
-                  type="hidden"
+                  type="password"
                   class="form-control"
-                  name="username"
-                  id="pusername"
+                  placeholder="Password"
+                  name="password"
                 />
+              </div>
+              <div class="col-md-6">
+                <label for="" class="fw-bold">Confirm Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Confirm password"
+                  name="cpassword"
+                />
+              </div>
+            </div>
 
-                <div class="input-group mb-3">
-                  <label class="input-group-text fw-bold" for="class"
-                    >Class</label
-                  >
-                  <select class="form-select" id="class" name="classId">
-                    <option selected>Open this select class</option>
-                    <option value="jss1">JSS1</option>
-                    <option value="jss2">JSS2</option>
-                    <option value="jss3">JSS3</option>
-                    <option value="ss1">SS1</option>
-                    <option value="ss2">SS2</option>
-                    <option value="ss3">SS3</option>
-                  </select>
-                </div>
-
-
-                <div class="input-group mb-3">
-                  <label class="input-group-text" for="role">Role</label>
-                  <select class="form-select" id="role" name="role">
-                    <option selected>Select user type</option>
-                    <option value="user">user</option>
-                    <option value="teacher">teacher</option>
-                    <option value="admin">admin</option>
-                  </select>
-                </div>
-
-                <h6>Gender</h6>
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="gender"
-                    id="gender"
-                    value="male"
-                  />
-                  <label class="form-check-label" for="gender"> Male </label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="gender"
-                    id="gender"
-                    value="female"
-                  />
-                  <label class="form-check-label" for="gender"> Female </label>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <label for="" class="fw-bold">Password</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      placeholder="Password"
-                      name="password"
-                    />
-                  </div>
-                  <div class="col-md-6">
-                    <label for="" class="fw-bold">Confirm Password</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      placeholder="Confirm password"
-                      name="cpassword"
-                    />
-                  </div>
-                </div>
-
-                <div class="form-group my-3">
-                  <input type="submit" value="Submit" class="btn btn-primary" />
-                  <span class=""
-                    >Have an Account Already
-                    <a href="/user/login">Login</a></span
-                  >
-                </div>
-              </form>
-
+            <div class="form-group my-3">
+              <input type="submit" value="Submit" class="btn btn-primary" />
+              <span class=""
+                >Have an Account Already <a href="/user/login">Login</a></span
+              >
+            </div>
+          </form>
         </div>
       </div>
     </main>
 
     <script>
       function edValueKeyPress() {
-        let fname, lname, username, pusername;
+        let fname, lname, username, pusername, date;
         fname = document.getElementById("fname").value;
         lname = document.getElementById("lname").value;
         pusername = document.getElementById("pusername");
-
-        // username = document.getElementById("username");
-        // let createdId = `FDS/${fname
-        //   .charAt(0)
-        //   .toLowerCase()}${lname.toLowerCase()}`;
-        date = new Date().getFullYear()
+        date = new Date().getFullYear();
         username = document.getElementById("username");
         let createdId = `fds/teacher/00<%= count++ %>`;
-          username.value = createdId
-          pusername.value = createdId
+        username.value = createdId;
+        pusername.value = createdId;
       }
     </script>
 

@@ -9,7 +9,7 @@ const { SECRET } = process.env || "mysecret";
 exports.dashboard = async (req, res) => {
   let message = await req.flash("info");
   let data = await findOne({ id: await req.user });
-  console.log({ user_data: data });
+  // console.log({ user_data: data });
 
   res.render("pages/dashboard", { message, loggedIn: true, data });
 };
@@ -94,8 +94,7 @@ exports.dash = async (req, res) => {
   let id = { id: await req.user }
   let data = await findOne({ id: await req.user });
   let assignments = await model.getAssignments();
-  let {user_id} = assignments[0]
-  console.log({ data, message, assignments, assignmentId: user_id });
+  // console.log({ data, message, assignments, assignmentId: user_id });
   const ass = assignments.filter(
     (ass) => ass.user_id === id.id);
   console.log("assignment Id: ", ass);

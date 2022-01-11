@@ -43,34 +43,3 @@ exports.updateToken = (id, token) => {
 exports.getAssignments = (req, res) => {
   return db("assignment_submission").select("*");
 };
-
-
-// exports.up = async () => {
-//   // Create a table
-//   let create = await db.schema
-//     .createTable("users", (table) => {
-//       table.increments("id");
-//       table.string("first_name");
-//       table.string("last_name");
-//       table.string("username");
-//       table.string("classId");
-//       table.string("photo");
-//       table.string("student_id");
-//       table.string("password");
-//       table.boolean("isAdmin");
-//       table.boolean("isTeacher");
-//       table.string("role");
-//       table.timestamps("created_at").defaultTo(db.fn.now());
-//     })
-//     // ...and another
-//     .createTable("profile", (table) => {
-//       table.increments("id");
-//       table.string("username");
-//       table.integer("user_id").unsigned().references("users.id");
-//     });
-//   return create;
-// };
-
-// exports.down = async () => {
-//   return await db.schema.dropTableIfExists("users");
-// };
