@@ -40,7 +40,7 @@
                 >Download</a
               >
               <% } %>
-              <% if(data.isAdmin) { %>
+              <% if(!data.isAdmin && !data.isTeacher) { %>
               <a
               href="/assignment/delete/<%= assignment.id %>"
                 class="btn btn-danger"

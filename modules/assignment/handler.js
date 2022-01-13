@@ -97,8 +97,7 @@ exports.deleteAssignment = async (req, res) => {
   console.log(id);
   const assignment = await model.deleteAssignment(req.params.id);
   if (assignment) {
-    let message = "Assignment Deleted";
-    req.flash("message", message);
+    req.flash("info", "Assignment Deleted");
     res.redirect("/admin");
   }
 };
@@ -133,13 +132,13 @@ exports.grade = async (req, res) => {
   let score = req.body.score;
   if (!id && !score) {
     let message = "Assignment Not Graded unprocessed fields";
-    req.flash("message", message);
+    req.flash("info", message);
     res.redirect("/assignment/results");
   }
   let grade = await model.gradeAssignment(id, score);
   if (grade) {
     let message = "Assignment Graded";
-    req.flash("message", message);
+    req.flash("info", message);
     res.redirect("/teacher");
   } else {
     let message = "Assignment Not Graded";

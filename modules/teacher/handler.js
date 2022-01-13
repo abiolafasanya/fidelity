@@ -23,7 +23,20 @@ const { SECRET } = process.env || "mysecret";
   };
 
   exports.assignment = async (req, res) => {
-
+    let {title, description, resource, studentClass, subject} = req.body
+    console.log(title, description, resource, studentClass, subject, {teacher_id: await req.user })
+    const data ={ title, description, resource, studentClass, subject, teacher_id: await req.user}
+    let save = await model.createAssignment(data)
+    if (save) {
+      await req.flash("info", "Assignment has been created")
+      console.log("Assignment created successfully")
+      res.redirect("/teacher")
+    }
+    else {
+      req.flash("info", "Failed to create Assignment")
+      console.log("Failed to create Assignment")
+      res.redirect("/teacher")
+    } 
   }
 
   exports.getAssignments = async (req, res) => {
