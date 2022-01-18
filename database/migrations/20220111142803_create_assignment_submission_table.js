@@ -30,3 +30,12 @@
 //     return knex.schema.dropTable("assignment_submission");
 //   };
   
+
+
+exports.up = function(knex) {
+  
+};
+
+exports.down = function(knex) {
+  
+};

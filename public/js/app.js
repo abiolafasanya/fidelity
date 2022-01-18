@@ -64,8 +64,6 @@ UI.start();
 // fetch result from submitted
 
 let submitAssignment = document.querySelector("#submitAssignment");
-let form = document.querySelector("form");
-let formArea = document.querySelector("#formArea");
 submitAssignment.addEventListener("submit", (e) => {
   e.preventDefault();
   console.log("yeah asssignment submiited");
@@ -81,7 +79,10 @@ submitAssignment.addEventListener("submit", (e) => {
   formData.append("subject", subject);
   formData.append("name", name);
   formData.append("classId", classId);
-  
+
+  const getElement = (e) => document.querySelector(e);
+  const newElement = (e) => document.createElement(e);
+  // const elementText = (e) => document.createTextNode(e);
 
   fetch("/assignment/submit", {
     method: "post",
@@ -90,14 +91,26 @@ submitAssignment.addEventListener("submit", (e) => {
   }).then((data) => {
     if (data.ok) {
       console.log(data.ok, data.message);
-      alert("Assignment Submitted")
+      // alert("Assignment Submitted")
+
+      let container = getElement("#container");
+      let form = getElement("#submitAssignment");
+      let alert = newElement("div");
+      alert.setAttribute("class", "alert alert-success text-center");
+      alert.innerHTML = "Assignment Submitted";
+      container.insertBefore(alert, form);
       e.target.name.value = "";
       e.target.subject.value = "";
       e.target.classId.value = "";
       e.target.upload.value = "";
+
+      setTimeout(() => {
+        alert.setAttribute("class", "d-none")
+      }, 5000);
+
     } else {
       console.log("failed");
-      alert("Assignment not Submitted")
+      alert("Assignment not Submitted");
       e.target.name.value = "";
       e.target.subject.value = "";
       e.target.classId.value = "";
